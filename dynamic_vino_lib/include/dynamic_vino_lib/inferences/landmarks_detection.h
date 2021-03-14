@@ -14,7 +14,7 @@
 
 /**
  * @brief A header file with declaration for LandmarksDetection Class
- * @file landmarks_detection.hpp
+ * @file landmarks_detection.h
  */
 #ifndef DYNAMIC_VINO_LIB__INFERENCES__LANDMARKS_DETECTION_HPP_
 #define DYNAMIC_VINO_LIB__INFERENCES__LANDMARKS_DETECTION_HPP_
