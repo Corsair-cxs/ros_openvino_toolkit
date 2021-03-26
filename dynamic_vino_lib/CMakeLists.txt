@@ -139,6 +139,8 @@ endif()
 
 set(DEPENDENCIES realsense2 ${OpenCV_LIBS})
 
+add_definitions(-DLOG_LEVEL_DEBUG)
+
 add_library(${PROJECT_NAME} SHARED
   src/services/frame_processing_server.cpp
   src/services/pipeline_processing_server.cpp

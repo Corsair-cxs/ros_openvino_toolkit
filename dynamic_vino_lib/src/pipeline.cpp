@@ -38,6 +38,10 @@ Pipeline::Pipeline(const std::string& name)
 
 bool Pipeline::add(const std::string& name, std::shared_ptr<Input::BaseInputDevice> input_device)
 {
+  slog::err << "------- " << slog::endl;
+  slog::err << "add(const std::string& name, std::shared_ptr<Input::BaseInputDevice> input_device) " << slog::endl;
+  slog::err << "Input_device: " << name << slog::endl;
+  slog::err << "------- " << slog::endl;
   if (name.empty())
   {
     slog::err << "Item name can't be empty!" << slog::endl;
@@ -53,6 +57,11 @@ bool Pipeline::add(const std::string& name, std::shared_ptr<Input::BaseInputDevi
 
 bool Pipeline::add(const std::string& parent, const std::string& name, std::shared_ptr<Outputs::BaseOutput> output)
 {
+  slog::err << "------- " << slog::endl;
+  slog::err << "add(const std::string& parent, const std::string& name, std::shared_ptr<Outputs::BaseOutput> output) " << slog::endl;
+  slog::err << "Parent: " << parent << slog::endl;
+  slog::err << "Child: " << name << slog::endl;
+  slog::err << "------- " << slog::endl;
   if (parent.empty() || name.empty() || !isLegalConnect(parent, name) || output == nullptr)
   {
     slog::err << "ARGuments ERROR when adding output instance!" << slog::endl;
@@ -71,6 +80,11 @@ bool Pipeline::add(const std::string& parent, const std::string& name, std::shar
 
 bool Pipeline::add(const std::string& parent, const std::string& name)
 {
+  slog::err << "------- " << slog::endl;
+  slog::err << "add(const std::string& parent, const std::string& name) " << slog::endl;
+  slog::err << "Parent: " << parent << slog::endl;
+  slog::err << "Child: " << name << slog::endl;
+  slog::err << "------- " << slog::endl;
   if (isLegalConnect(parent, name))
   {
     addConnect(parent, name);
@@ -82,6 +96,11 @@ bool Pipeline::add(const std::string& parent, const std::string& name)
 
 bool Pipeline::add(const std::string& name, std::shared_ptr<Outputs::BaseOutput> output)
 {
+  slog::err << "------- " << slog::endl;
+  slog::err << "add(const std::string& name, std::shared_ptr<Outputs::BaseOutput> output) " << slog::endl;
+  slog::err << "Name: " << name << slog::endl;
+  slog::err << "------- " << slog::endl;
+  slog::err << name << slog::endl;
   if (name.empty())
   {
     slog::err << "Item name can't be empty!" << slog::endl;
@@ -103,6 +122,11 @@ bool Pipeline::add(const std::string& name, std::shared_ptr<Outputs::BaseOutput>
 
 void Pipeline::addConnect(const std::string& parent, const std::string& name)
 {
+  slog::err << "------- " << slog::endl;
+  slog::err << "addConnect(const std::string& parent, const std::string& name) " << slog::endl;
+  slog::err << "Parent: " << parent << slog::endl;
+  slog::err << "Child: " << name << slog::endl;
+  slog::err << "------- " << slog::endl;
   std::pair<std::multimap<std::string, std::string>::iterator, std::multimap<std::string, std::string>::iterator> ret;
   ret = next_.equal_range(parent);
 
@@ -120,7 +144,12 @@ void Pipeline::addConnect(const std::string& parent, const std::string& name)
 
 bool Pipeline::add(const std::string& parent, const std::string& name,
                    std::shared_ptr<dynamic_vino_lib::BaseInference> inference)
-{
+{  
+  slog::err << "------- " << slog::endl;
+  slog::err << "add(const std::string& parent, const std::string& name,       std::shared_ptr<dynamic_vino_lib::BaseInference> inference)" << slog::endl;
+  slog::err << "Parent: " << parent << slog::endl;
+  slog::err << "Child: " << name << slog::endl;
+  slog::err << "------- " << slog::endl;
   if (parent.empty() || name.empty() || !isLegalConnect(parent, name))
   {
     slog::err << "ARGuments ERROR when adding inference instance!" << slog::endl;
@@ -138,6 +167,10 @@ bool Pipeline::add(const std::string& parent, const std::string& name,
 
 bool Pipeline::add(const std::string& name, std::shared_ptr<dynamic_vino_lib::BaseInference> inference)
 {
+  slog::err << "------- " << slog::endl;
+  slog::err << "add(const std::string& name, std::shared_ptr<dynamic_vino_lib::BaseInference> inference)" << slog::endl;
+  slog::err << "Name: " << name << slog::endl;
+  slog::err << "------- " << slog::endl;
   if (name.empty())
   {
     slog::err << "Item name can't be empty!" << slog::endl;

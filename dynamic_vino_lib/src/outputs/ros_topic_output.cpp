@@ -394,15 +394,15 @@ void Outputs::RosTopicOutput::handleOutput()
     pub_object_.publish(object_msg);
     detected_objects_topic_ = nullptr;
   }
-  if (detected_objects_topic_ != nullptr)
-  {
-    object_msgs::ObjectsInBoxes object_msg;
-    object_msg.header = header;
-    object_msg.objects_vector.swap(detected_objects_topic_->objects_vector);
+  // if (detected_objects_topic_ != nullptr)
+  // {
+  //   object_msgs::ObjectsInBoxes object_msg;
+  //   object_msg.header = header;
+  //   object_msg.objects_vector.swap(detected_objects_topic_->objects_vector);
 
-    pub_object_.publish(object_msg);
-    detected_objects_topic_ = nullptr;
-  }
+  //   pub_object_.publish(object_msg);
+  //   detected_objects_topic_ = nullptr;
+  // }
   if (face_reid_topic_ != nullptr)
   {
     people_msgs::ReidentificationStamped face_reid_msg;

@@ -82,11 +82,13 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "sample_with_params");
 
+  slog::debug << "pipeline with params init" << slog::endl;
   // register signal SIGINT and signal handler
   signal(SIGINT, signalHandler);
 
   std::string FLAGS_config;
-  ros::param::param<std::string>("~param_file", FLAGS_config, "/param/pipeline_object_oss.yaml");
+  slog::debug << "before param init" << slog::endl;
+  ros::param::param<std::string>("~param_file", FLAGS_config, "/param/pipeline_object.yaml");
   slog::info << "FLAGS_config=" << FLAGS_config << slog::endl;
 
   try

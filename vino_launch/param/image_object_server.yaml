@@ -3,7 +3,7 @@ Pipelines:
   inputs: [Image]
   infers:
     - name: ObjectDetection
-      model: /opt/openvino_toolkit/models/object_detection/mobilenet-ssd/caffe/output/FP32/mobilenet-ssd.xml
+      model: /home/cxs/intel/openvino_2020.3.194/deployment_tools/open_model_zoo/tools/downloader/public/mobilenet-ssd/FP16/mobilenet-ssd.xml
       engine: CPU
       label: to/be/set/xxx.labels
       batch: 1
@@ -15,6 +15,6 @@ Pipelines:
       right: [ObjectDetection]
     - left: ObjectDetection
       right: [RosService]
-  input_path: "/home/intel/Pictures/car.png"
+  input_path: "/home/cxs/Pictures/friends.png"
 
 Common:
