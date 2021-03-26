@@ -306,7 +306,11 @@ void Outputs::RosTopicOutput::accept(const std::vector<dynamic_vino_lib::Landmar
 
 void Outputs::RosTopicOutput::handleOutput()
 {
+<<<<<<< HEAD
   std_msgs::Header header = getHeader();
+=======
+   std_msgs::Header header = getHeader();
+>>>>>>> 37ee13f8958cf3b82c64b224ca962f8ae21f9edb
   // auto header = getPipeline()->getInputDevice()->getLockedHeader();
   if (vehicle_attribs_topic_ != nullptr)
   {

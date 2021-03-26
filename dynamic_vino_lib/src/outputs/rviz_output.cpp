@@ -121,4 +121,8 @@ std_msgs::Header Outputs::RvizOutput::getHeader()
   header.stamp.nsec = ns % 1000000000;
   return header;
 }
+<<<<<<< HEAD
 #endif  // depreated 
+=======
+#endif  // depreated 
+>>>>>>> 37ee13f8958cf3b82c64b224ca962f8ae21f9edb

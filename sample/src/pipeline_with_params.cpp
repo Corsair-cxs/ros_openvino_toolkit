@@ -47,6 +47,11 @@
 #include "dynamic_vino_lib/inferences/emotions_detection.h"
 #include "dynamic_vino_lib/inferences/face_detection.h"
 #include "dynamic_vino_lib/inferences/head_pose_detection.h"
+<<<<<<< HEAD
+=======
+// #include "dynamic_vino_lib/inferences/object_detection_yolov2_voc.h"
+// #include "dynamic_vino_lib/inferences/object_detection_ssd.h"
+>>>>>>> 37ee13f8958cf3b82c64b224ca962f8ae21f9edb
 #include "dynamic_vino_lib/inputs/realsense_camera_topic.h"
 #include "dynamic_vino_lib/outputs/image_window_output.h"
 #include "dynamic_vino_lib/outputs/ros_topic_output.h"

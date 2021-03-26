@@ -64,7 +64,11 @@ inline std::string& trim(std::string& s)
   return s;
 }
 
+<<<<<<< HEAD
 // TargetDevice is not in openvino2020.3.341
+=======
+// TargetDevice is not in openvino2020
+>>>>>>> 37ee13f8958cf3b82c64b224ca962f8ae21f9edb
 #if 0 
 /**
 * @brief Converts string to TargetDevice
@@ -231,7 +235,10 @@ inline void printPluginVersion(InferenceEngine::InferenceEnginePluginPtr ptr, st
   stream << pluginVersion << std::endl;
 }
 
+<<<<<<< HEAD
 // TargetDevice is not in openvino2020
+=======
+>>>>>>> 37ee13f8958cf3b82c64b224ca962f8ae21f9edb
 #if 0
 static UNUSED std::vector<std::vector<size_t>> blobToImageOutputArray(InferenceEngine::TBlob<float>::Ptr output,
                                                                       size_t* pWidth, size_t* pHeight,
@@ -648,8 +655,11 @@ static UNUSED void printPerformanceCounts(InferenceEngine::InferRequest request,
   printPerformanceCounts(perfomanceMap, stream);
 }
 
+<<<<<<< HEAD
 
 // TargetDevice is not in openvino2020
+=======
+>>>>>>> 37ee13f8958cf3b82c64b224ca962f8ae21f9edb
 #if 0
 /**
  * @deprecated
