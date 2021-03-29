@@ -50,6 +50,7 @@
 #include <string>
 #include <vector>
 
+#include "dynamic_vino_lib/slog.h"
 #include "dynamic_vino_lib/inferences/face_detection.h"
 #include "dynamic_vino_lib/outputs/base_output.h"
 
