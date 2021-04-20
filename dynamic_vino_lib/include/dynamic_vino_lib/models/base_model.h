@@ -136,7 +136,11 @@ public:
   virtual bool fetchResults(const std::shared_ptr<Engines::Engine>& engine,
                             std::vector<dynamic_vino_lib::ObjectDetectionResult>& result,
                             const float& confidence_thresh = 0.3, const bool& enable_roi_constraint = false) = 0;
-  virtual bool matToBlob(const cv::Mat& orig_image, const cv::Rect&, float scale_factor, int batch_index,
+                            
+  virtual bool matToBlob(const cv::Mat& orig_image, 
+                         const cv::Rect&, 
+                         float scale_factor, 
+                         int batch_index,
                          const std::shared_ptr<Engines::Engine>& engine) = 0;
 };
 
