@@ -30,8 +30,8 @@ bool Models::LandmarksDetectionModel::updateLayerProperty(InferenceEngine::CNNNe
   // set input property
   InferenceEngine::InputsDataMap input_info_map(net_reader->getNetwork().getInputsInfo());
   InferenceEngine::InputInfo::Ptr input_info = input_info_map.begin()->second;
-  input_info->setPrecision(InferenceEngine::Precision::U8);
-  input_info->getInputData()->setLayout(InferenceEngine::Layout::NCHW);
+  input_info->setPrecision(InferenceEngine::Precision::FP32);
+  input_info->getInputData()->setLayout(InferenceEngine::Layout::NC);
   // set output property
   InferenceEngine::OutputsDataMap output_info_map(net_reader->getNetwork().getOutputsInfo());
   InferenceEngine::DataPtr& output_data_ptr = output_info_map.begin()->second;
