@@ -107,6 +107,7 @@ public:
 private:
   std::shared_ptr<Models::LandmarksDetectionModel> valid_model_;
   std::vector<Result> results_;
+  void adjustBoundingBox(cv::Rect& boundingBox);
 };
 }  // namespace dynamic_vino_lib
 #endif  // DYNAMIC_VINO_LIB__INFERENCES__LANDMARKS_DETECTION_HPP_

@@ -38,7 +38,7 @@ class GazeDetectionResult : public Result
 public:
   friend class GazeDetection;
   explicit GazeDetectionResult(const cv::Rect& location);
-  std::vector<cv::Point> getGaze() const
+  std::vector<cv::Point2i> getGaze() const
   {
     //TODO
     return landmark_points_;

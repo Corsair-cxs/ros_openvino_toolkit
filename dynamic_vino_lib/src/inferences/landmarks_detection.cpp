@@ -60,6 +60,27 @@ bool dynamic_vino_lib::LandmarksDetection::submitRequest()
   return dynamic_vino_lib::BaseInference::submitRequest();
 }
 
+void dynamic_vino_lib::LandmarksDetection::adjustBoundingBox(cv::Rect& boundingBox) {
+    auto w = boundingBox.width;
+    auto h = boundingBox.height;
+
+    boundingBox.x -= static_cast<int>(0.067 * w);
+    boundingBox.y -= static_cast<int>(0.028 * h);
+
+    boundingBox.width += static_cast<int>(0.15 * w);
+    boundingBox.height += static_cast<int>(0.13 * h);
+
+    if (boundingBox.width < boundingBox.height) {
+        auto dx = (boundingBox.height - boundingBox.width);
+        boundingBox.x -= dx / 2;
+        boundingBox.width += dx;
+    } else {
+        auto dy = (boundingBox.width - boundingBox.height);
+        boundingBox.y -= dy / 2;
+        boundingBox.height += dy;
+    }
+}
+
 bool dynamic_vino_lib::LandmarksDetection::fetchResults()
 {
   bool can_fetch = dynamic_vino_lib::BaseInference::fetchResults();
@@ -79,6 +100,7 @@ bool dynamic_vino_lib::LandmarksDetection::fetchResults()
     for (int j = 0; j < result_length; j += 2)
     {
       cv::Rect rect = results_[i].getLocation();
+      adjustBoundingBox(rect);
       int col = static_cast<int>(coordinates[j] * rect.width);
       int row = static_cast<int>(coordinates[j + 1] * rect.height);
       cv::Point landmark_point(rect.x + col, rect.y + row);
