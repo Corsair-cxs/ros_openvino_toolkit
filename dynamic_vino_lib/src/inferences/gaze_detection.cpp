@@ -82,7 +82,7 @@ bool dynamic_vino_lib::GazeDetection::fetchResults()
       int col = static_cast<int>(coordinates[j] * rect.width);
       int row = static_cast<int>(coordinates[j + 1] * rect.height);
       //TODO
-      cv::Point landmark_point(rect.x + col, rect.y + row);
+      cv::Point2i landmark_point(rect.x + col, rect.y + row);
       results_[i].landmark_points_.push_back(landmark_point);
     }
     found_result = true;

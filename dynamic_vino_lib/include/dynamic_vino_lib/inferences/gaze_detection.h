@@ -46,7 +46,7 @@ public:
 
 private:
   //TODO
-  std::vector<cv::Point> landmark_points_;
+  std::vector<cv::Point2i> landmark_points_;
 };
 /**
  * @class GazeDetection

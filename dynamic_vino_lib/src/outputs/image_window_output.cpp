@@ -325,7 +325,7 @@ void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::Land
   {
     cv::Rect result_rect = results[i].getLocation();
     unsigned target_index = findOutput(result_rect);
-    std::vector<cv::Point> landmark_points = results[i].getLandmarks();
+    std::vector<cv::Point2i> landmark_points = results[i].getLandmarks();
     for (int j = 0; j < landmark_points.size(); j++)
     {
       outputs_[target_index].landmarks.push_back(landmark_points[j]);
@@ -359,17 +359,21 @@ void Outputs::ImageWindowOutput::decorateFrame()
     if (o.hp_zs != o.hp_ze)
     {
       cv::line(frame_, o.hp_zs, o.hp_ze, cv::Scalar(255, 0, 0), 2);
-      cv::circle(frame_, o.hp_ze, 3, cv::Scalar(255, 0, 0), 2);
+      // cv::circle(frame_, o.hp_ze, lmRadius, cv::Scalar(0, 255, 0), -1);
     }
 
-    for (int i = 0; i < o.landmarks.size(); i++)
+    //TODO Corsair-cxs
+    auto faceBoundingBoxWidth = o.rect.width;
+    int lmRadius = static_cast<int>(0.01 * faceBoundingBoxWidth + 1);
+    for (unsigned long i = 0; i < o.landmarks.size(); i++)
     {
-      cv::circle(frame_, o.landmarks[i], 3, cv::Scalar(255, 0, 0), 2);
+      cv::circle(frame_, o.landmarks[i], lmRadius, cv::Scalar(0, 255, 255), -1);
     }
   }
 
   outputs_.clear();
 }
+
 void Outputs::ImageWindowOutput::handleOutput()
 {
   if (frame_.cols == 0 || frame_.rows == 0)

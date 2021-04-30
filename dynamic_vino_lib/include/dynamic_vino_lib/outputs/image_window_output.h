@@ -160,7 +160,7 @@ private:
     cv::Point hp_ze;      // for headpose, end point of zAxis
     cv::Point pa_top;     // for person attributes, top position
     cv::Point pa_bottom;  // for person attributes, bottom position
-    std::vector<cv::Point> landmarks;
+    std::vector<cv::Point2i> landmarks;
   };
 
   std::vector<OutputData> outputs_;

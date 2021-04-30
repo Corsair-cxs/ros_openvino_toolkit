@@ -38,13 +38,13 @@ class LandmarksDetectionResult : public Result
 public:
   friend class LandmarksDetection;
   explicit LandmarksDetectionResult(const cv::Rect& location);
-  std::vector<cv::Point> getLandmarks() const
+  std::vector<cv::Point2i> getLandmarks() const
   {
     return landmark_points_;
   }
 
 private:
-  std::vector<cv::Point> landmark_points_;
+  std::vector<cv::Point2i> landmark_points_;
 };
 /**
  * @class LandmarksDetection

@@ -292,7 +292,7 @@ void Outputs::RosTopicOutput::accept(const std::vector<dynamic_vino_lib::Landmar
     landmark.roi.y_offset = loc.y;
     landmark.roi.width = loc.width;
     landmark.roi.height = loc.height;
-    std::vector<cv::Point> landmark_points = r.getLandmarks();
+    std::vector<cv::Point2i> landmark_points = r.getLandmarks();
     for (auto pt : landmark_points)
     {
       geometry_msgs::Point point;
