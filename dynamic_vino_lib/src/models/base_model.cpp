@@ -88,3 +88,8 @@ Models::ObjectDetectionModel::ObjectDetectionModel(const std::string& model_loc,
   : BaseModel(model_loc, max_batch_size)
 {
 }
+
+Models::FaceDetectionModel::FaceDetectionModel(const std::string& model_loc, int max_batch_size)
+  : BaseModel(model_loc, max_batch_size)
+{
+}

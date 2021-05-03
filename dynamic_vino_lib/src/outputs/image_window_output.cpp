@@ -19,7 +19,7 @@
  * @file image_window_output.cpp
  */
 
-#include "dynamic_vino_lib/outputs/image_window_output.h"
+// #include "dynamic_vino_lib/outputs/image_window_output.h"
 #include <algorithm>
 #include <string>
 #include <vector>
@@ -87,23 +87,6 @@ void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::Vehi
     unsigned target_index = findOutput(result_rect);
     outputs_[target_index].rect = result_rect;
     outputs_[target_index].desc += ("[" + results[i].getColor() + "," + results[i].getType() + "]");
-  }
-}
-
-void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::FaceDetectionResult>& results)
-{
-  for (unsigned i = 0; i < results.size(); i++)
-  {
-    cv::Rect result_rect = results[i].getLocation();
-    unsigned target_index = findOutput(result_rect);
-    outputs_[target_index].rect = result_rect;
-    auto fd_conf = results[i].getConfidence();
-    if (fd_conf >= 0)
-    {
-      std::ostringstream ostream;
-      ostream << "[" << std::fixed << std::setprecision(3) << fd_conf << "]";
-      outputs_[target_index].desc += ostream.str();
-    }
   }
 }
 
@@ -206,6 +189,23 @@ void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::Obje
     }
     auto label = results[i].getLabel();
     outputs_[target_index].desc += "[" + label + "]";
+  }
+}
+
+void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::FaceDetectionResult>& results)
+{
+  for (unsigned i = 0; i < results.size(); i++)
+  {
+    cv::Rect result_rect = results[i].getLocation();
+    unsigned target_index = findOutput(result_rect);
+    outputs_[target_index].rect = result_rect;
+    auto fd_conf = results[i].getConfidence();
+    if (fd_conf >= 0)
+    {
+      std::ostringstream ostream;
+      ostream << "[" << std::fixed << std::setprecision(3) << fd_conf << "]";
+      outputs_[target_index].desc += ostream.str();
+    }
   }
 }
 
