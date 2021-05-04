@@ -13,23 +13,23 @@
 // limitations under the License.
 
 /**
- * @brief A header file with declaration for GazeDetectionModel Class
- * @file gaze_detection_model.h
+ * @brief A header file with declaration for GazeEstimationModel Class
+ * @file gaze_estimation_model.h
  */
-#ifndef DYNAMIC_VINO_LIB__MODELS__GAZE_DETECTION_MODEL_HPP_
-#define DYNAMIC_VINO_LIB__MODELS__GAZE_DETECTION_MODEL_HPP_
+#ifndef DYNAMIC_VINO_LIB__MODELS__GAZE_ESTIMATION_MODEL_HPP_
+#define DYNAMIC_VINO_LIB__MODELS__GAZE_ESTIMATION_MODEL_HPP_
 #include <string>
 #include "dynamic_vino_lib/models/base_model.h"
 namespace Models
 {
 /**
- * @class GazeDetectionModel
+ * @class GazeEstimationModel
  * @brief This class generates the gaze detection model.
  */
-class GazeDetectionModel : public BaseModel
+class GazeEstimationModel : public BaseModel
 {
 public:
-  GazeDetectionModel(const std::string& model_loc, int batch_size = 1);
+  GazeEstimationModel(const std::string& model_loc, int batch_size = 1);
   inline const std::string getInputName()
   {
     return input_;
@@ -50,4 +50,4 @@ protected:
   std::string output_;
 };
 }  // namespace Models
-#endif  // DYNAMIC_VINO_LIB__MODELS__GAZE_DETECTION_MODEL_HPP_
+#endif  // DYNAMIC_VINO_LIB__MODELS__GAZE_ESTIMATION_MODEL_HPP_

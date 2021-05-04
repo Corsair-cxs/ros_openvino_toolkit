@@ -13,34 +13,34 @@
 // limitations under the License.
 
 /**
- * @brief a header file with declaration of GazeDetection class and
- * GazeDetectionResult class
- * @file gaze_detection.cpp
+ * @brief a header file with declaration of GazeEstimation class and
+ * GazeEstimationResult class
+ * @file gaze_estimation.cpp
  */
 #include <memory>
 #include <string>
 #include <vector>
-#include "dynamic_vino_lib/inferences/gaze_detection.h"
+#include "dynamic_vino_lib/inferences/gaze_estimation.h"
 #include "dynamic_vino_lib/outputs/base_output.h"
 
-// GazeDetectionResult
-dynamic_vino_lib::GazeDetectionResult::GazeDetectionResult(const cv::Rect& location) : Result(location)
+// GazeEstimationResult
+dynamic_vino_lib::GazeEstimationResult::GazeEstimationResult(const cv::Rect& location) : Result(location)
 {
 }
 
-// GazeDetection
-dynamic_vino_lib::GazeDetection::GazeDetection() : dynamic_vino_lib::BaseInference()
+// GazeEstimation
+dynamic_vino_lib::GazeEstimation::GazeEstimation() : dynamic_vino_lib::BaseInference()
 {
 }
 
-dynamic_vino_lib::GazeDetection::~GazeDetection() = default;
-void dynamic_vino_lib::GazeDetection::loadNetwork(const std::shared_ptr<Models::GazeDetectionModel> network)
+dynamic_vino_lib::GazeEstimation::~GazeEstimation() = default;
+void dynamic_vino_lib::GazeEstimation::loadNetwork(const std::shared_ptr<Models::GazeEstimationModel> network)
 {
   valid_model_ = network;
   setMaxBatchSize(network->getMaxBatchSize());
 }
 
-bool dynamic_vino_lib::GazeDetection::enqueue(const cv::Mat& frame, const cv::Rect& input_frame_loc)
+bool dynamic_vino_lib::GazeEstimation::enqueue(const cv::Mat& frame, const cv::Rect& input_frame_loc)
 {
   if (getEnqueuedNum() == 0)
   {
@@ -55,12 +55,12 @@ bool dynamic_vino_lib::GazeDetection::enqueue(const cv::Mat& frame, const cv::Re
   return true;
 }
 
-bool dynamic_vino_lib::GazeDetection::submitRequest()
+bool dynamic_vino_lib::GazeEstimation::submitRequest()
 {
   return dynamic_vino_lib::BaseInference::submitRequest();
 }
 
-bool dynamic_vino_lib::GazeDetection::fetchResults()
+bool dynamic_vino_lib::GazeEstimation::fetchResults()
 {
   bool can_fetch = dynamic_vino_lib::BaseInference::fetchResults();
   if (!can_fetch)
@@ -94,22 +94,22 @@ bool dynamic_vino_lib::GazeDetection::fetchResults()
   return true;
 }
 
-int dynamic_vino_lib::GazeDetection::getResultsLength() const
+int dynamic_vino_lib::GazeEstimation::getResultsLength() const
 {
   return static_cast<int>(results_.size());
 }
 
-const dynamic_vino_lib::Result* dynamic_vino_lib::GazeDetection::getLocationResult(int idx) const
+const dynamic_vino_lib::Result* dynamic_vino_lib::GazeEstimation::getLocationResult(int idx) const
 {
   return &(results_[idx]);
 }
 
-const std::string dynamic_vino_lib::GazeDetection::getName() const
+const std::string dynamic_vino_lib::GazeEstimation::getName() const
 {
   return valid_model_->getModelCategory();
 }
 
-void dynamic_vino_lib::GazeDetection::observeOutput(const std::shared_ptr<Outputs::BaseOutput>& output)
+void dynamic_vino_lib::GazeEstimation::observeOutput(const std::shared_ptr<Outputs::BaseOutput>& output)
 {
   if (output != nullptr)
   {
@@ -118,7 +118,7 @@ void dynamic_vino_lib::GazeDetection::observeOutput(const std::shared_ptr<Output
 }
 
 const std::vector<cv::Rect>
-dynamic_vino_lib::GazeDetection::getFilteredROIs(const std::string filter_conditions) const
+dynamic_vino_lib::GazeEstimation::getFilteredROIs(const std::string filter_conditions) const
 {
   if (!filter_conditions.empty())
   {

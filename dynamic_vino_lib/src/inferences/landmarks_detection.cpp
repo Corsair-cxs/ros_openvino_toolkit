@@ -100,7 +100,7 @@ bool dynamic_vino_lib::LandmarksDetection::fetchResults()
     for (int j = 0; j < result_length; j += 2)
     {
       cv::Rect rect = results_[i].getLocation();
-      adjustBoundingBox(rect);
+      // adjustBoundingBox(rect);
       int col = static_cast<int>(coordinates[j] * rect.width);
       int row = static_cast<int>(coordinates[j + 1] * rect.height);
       cv::Point landmark_point(rect.x + col, rect.y + row);

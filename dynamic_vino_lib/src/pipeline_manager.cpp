@@ -32,7 +32,7 @@
 #include "dynamic_vino_lib/inferences/vehicle_attribs_detection.h"
 #include "dynamic_vino_lib/inferences/license_plate_detection.h"
 #include "dynamic_vino_lib/inferences/landmarks_detection.h"
-// #include "dynamic_vino_lib/inferences/gaze_detection.h"
+// #include "dynamic_vino_lib/inferences/gaze_estimation.h"
 #include "dynamic_vino_lib/inputs/image_input.h"
 #include "dynamic_vino_lib/inputs/realsense_camera.h"
 #include "dynamic_vino_lib/inputs/realsense_camera_topic.h"
@@ -49,7 +49,7 @@
 #include "dynamic_vino_lib/models/vehicle_attribs_detection_model.h"
 #include "dynamic_vino_lib/models/license_plate_detection_model.h"
 #include "dynamic_vino_lib/models/landmarks_detection_model.h"
-// #include "dynamic_vino_lib/models/gaze_detection_model.h"
+// #include "dynamic_vino_lib/models/gaze_estimation_model.h"
 #include "dynamic_vino_lib/outputs/image_window_output.h"
 #include "dynamic_vino_lib/outputs/ros_topic_output.h"
 #include "dynamic_vino_lib/outputs/rviz_output.h"
@@ -264,9 +264,9 @@ PipelineManager::parseInference(const Params::ParamManager::PipelineRawData& par
     {
       object = createLandmarksDetection(infer);
     }
-    // else if (infer.name == kInferTpye_GazeDetection)
+    // else if (infer.name == kInferTpye_GazeEstimation)
     // {
-    //   object = createGazeDetection(infer);
+    //   object = createGazeEstimation(infer);
     // }
     else if (infer.name == kInferTpye_VehicleAttribsDetection)
     {
@@ -466,13 +466,13 @@ PipelineManager::createLandmarksDetection(
 }
 
 // std::shared_ptr<dynamic_vino_lib::BaseInference>
-// PipelineManager::createGazeDetection(
+// PipelineManager::createGazeEstimation(
 //   const Params::ParamManager::InferenceRawData & infer)
 // {
-//   auto model = std::make_shared<Models::GazeDetectionModel>(infer.model, infer.batch);
+//   auto model = std::make_shared<Models::GazeEstimationModel>(infer.model, infer.batch);
 //   model->modelInit();
 //   auto engine = engine_manager_.createEngine(infer.engine, model);
-//   auto gaze_inference_ptr =  std::make_shared<dynamic_vino_lib::GazeDetection>();
+//   auto gaze_inference_ptr =  std::make_shared<dynamic_vino_lib::GazeEstimation>();
 //   gaze_inference_ptr->loadNetwork(model);
 //   gaze_inference_ptr->loadEngine(engine);
 
