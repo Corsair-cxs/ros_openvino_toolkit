@@ -28,6 +28,7 @@
 #include "dynamic_vino_lib/inferences/age_gender_detection.h"
 #include "dynamic_vino_lib/inferences/base_inference.h"
 #include "dynamic_vino_lib/inferences/emotions_detection.h"
+#include "dynamic_vino_lib/inferences/object_detection.h"
 #include "dynamic_vino_lib/inferences/face_detection.h"
 #include "dynamic_vino_lib/inferences/head_pose_detection.h"
 #include "dynamic_vino_lib/inferences/object_segmentation.h"
