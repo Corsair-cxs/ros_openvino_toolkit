@@ -25,7 +25,7 @@ Models::GazeEstimationModel::GazeEstimationModel(const std::string& model_loc, i
 {
 }
 
-bool Models::LandmarksDetectionModel::updateLayerProperty(InferenceEngine::CNNNetReader::Ptr net_reader)
+bool Models::GazeEstimationModel::updateLayerProperty(InferenceEngine::CNNNetReader::Ptr net_reader)
 {
   //INPUT
   InferenceEngine::InputsDataMap input_info_map(net_reader->getNetwork().getInputsInfo());

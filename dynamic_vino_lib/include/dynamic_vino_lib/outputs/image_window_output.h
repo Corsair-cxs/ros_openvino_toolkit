@@ -64,11 +64,17 @@ public:
    */
   void accept(const std::vector<dynamic_vino_lib::VehicleAttribsDetectionResult>&) override;
   /**
-*@brief Generate image window output content according to
-*the landmarks detection result.
-*@param[in] A landmarks detection result objetc.
-*/
+  *@brief Generate image window output content according to
+  *the landmarks detection result.
+  *@param[in] A landmarks detection result objetc.
+  */
   void accept(const std::vector<dynamic_vino_lib::LandmarksDetectionResult>&) override;
+    /**
+  *@brief Generate image window output content according to
+  *the landmarks detection result.
+  *@param[in] A landmarks detection result objetc.
+  */
+  void accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>&) override;
   /**
    * @brief Generate image window output content according to
    * the person attributes detection result.
