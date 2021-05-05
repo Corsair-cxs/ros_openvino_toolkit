@@ -166,6 +166,12 @@ private:
     cv::Point hp_ze;      // for headpose, end point of zAxis
     cv::Point pa_top;     // for person attributes, top position
     cv::Point pa_bottom;  // for person attributes, bottom position
+    cv::Rect left_eye_boundingbox;   // for gaze estimation, EyeBoundingBox
+    cv::Rect right_eye_boundingbox;  // for gaze estimation, EyeBoundingBox
+    cv::Point2f left_eye_midpoint;   // for gaze estimation, EyeMidpoint
+    cv::Point2f right_eye_midpoint;  // for gaze estimation, EyeMidpoint
+    cv::Point3f gaze_vector;         // for gaze estimation, gazeVector
+
     std::vector<cv::Point2i> landmarks;
   };
 

@@ -29,6 +29,14 @@
 // namespace
 namespace dynamic_vino_lib
 {
+struct GazeResults 
+{
+  cv::Rect left_eye_boundingbox;
+  cv::Rect right_eye_boundingbox;
+  cv::Point2f left_eye_midpoint;
+  cv::Point2f right_eye_midpoint;
+  cv::Point3f gaze_vector;
+};
 /**
  * @class GazeEstimationResult
  * @brief Class for storing and processing gaze detection result.
@@ -43,10 +51,16 @@ public:
     //TODO
     return landmark_points_;
   }
+  dynamic_vino_lib::GazeResults getGazeResults() const
+  {
+    //TODO
+    return gaze_result_;
+  }
 
 private:
   //TODO
   std::vector<cv::Point2i> landmark_points_;
+  GazeResults gaze_result_;
 };
 /**
  * @class GazeEstimation

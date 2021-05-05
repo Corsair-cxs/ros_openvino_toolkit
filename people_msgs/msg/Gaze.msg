@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This message can represent the detected ROI and it's landmarks
-geometry_msgs/Point[] landmark_points			# target ID
-sensor_msgs/RegionOfInterest roi				# region of interest
+# This message can represent the detected ROI, eye midpoint and eyes' gaze vector
+
+sensor_msgs/RegionOfInterest left_roi				# leftEyeBoundingBox
+sensor_msgs/RegionOfInterest right_roi				# leftEyeBoundingBox

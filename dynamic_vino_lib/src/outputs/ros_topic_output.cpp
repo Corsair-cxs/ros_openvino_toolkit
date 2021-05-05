@@ -162,10 +162,10 @@ void Outputs::RosTopicOutput::accept(const std::vector<dynamic_vino_lib::ObjectS
   {
     // slog::info << ">";
     auto loc = r.getLocation();
-    object.roi.x_offset = loc.x;
-    object.roi.y_offset = loc.y;
-    object.roi.width = loc.width;
-    object.roi.height = loc.height;
+    // object.roi.x_offset = loc.x;
+    // object.roi.y_offset = loc.y;
+    // object.roi.width = loc.width;
+    // object.roi.height = loc.height;
     object.object_name = r.getLabel();
     object.probability = r.getConfidence();
     cv::Mat mask = r.getMask();
@@ -270,10 +270,10 @@ void Outputs::RosTopicOutput::accept(const std::vector<dynamic_vino_lib::ObjectD
   for (auto r : results)
   {
     auto loc = r.getLocation();
-    object.roi.x_offset = loc.x;
-    object.roi.y_offset = loc.y;
-    object.roi.width = loc.width;
-    object.roi.height = loc.height;
+    // object.roi.x_offset = loc.x;
+    // object.roi.y_offset = loc.y;
+    // object.roi.width = loc.width;
+    // object.roi.height = loc.height;
     object.object.object_name = r.getLabel();
     object.object.probability = r.getConfidence();
     detected_objects_topic_->objects_vector.push_back(object);

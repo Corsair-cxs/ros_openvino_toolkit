@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This message can represent the detected ROIs and their landmarks
+# This message can represent the detected gaze vector
 
-std_msgs/Header header        			# timestamp in header is the time the sensor captured the raw data
-Gaze[] Gazes					# gazes vector for different ROIs 
+float32 yaw							# yaw
+float32 pitch						# pitch
+float32 roll						# roll

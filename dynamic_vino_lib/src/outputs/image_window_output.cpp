@@ -299,6 +299,7 @@ void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::Gaze
     cv::Rect result_rect = results[i].getLocation();
     unsigned target_index = findOutput(result_rect);
     std::vector<cv::Point2i> landmark_points = results[i].getGaze();
+    dynamic_vino_lib::GazeResults gaze_result = results[i].getGazeResults()
     for (int j = 0; j < landmark_points.size(); j++)
     {
       outputs_[target_index].landmarks.push_back(landmark_points[j]);
