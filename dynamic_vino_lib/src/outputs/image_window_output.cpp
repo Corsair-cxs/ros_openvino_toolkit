@@ -333,6 +333,20 @@ void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::Land
   }
 }
 
+void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>& results)
+{
+  for (unsigned i = 0; i < results.size(); i++)
+  {
+    cv::Rect result_rect = results[i].getLocation();
+    unsigned target_index = findOutput(result_rect);
+    std::vector<cv::Point2i> landmark_points = results[i].getGaze();
+    for (int j = 0; j < landmark_points.size(); j++)
+    {
+      outputs_[target_index].landmarks.push_back(landmark_points[j]);
+    }
+  }
+}
+
 void Outputs::ImageWindowOutput::decorateFrame()
 {
   if (getPipeline()->getParameters()->isGetFps())

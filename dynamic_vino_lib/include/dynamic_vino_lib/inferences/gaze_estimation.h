@@ -13,15 +13,15 @@
 // limitations under the License.
 
 /**
- * @brief A header file with declaration for GazeDetection Class
- * @file gaze_detection.hpp
+ * @brief A header file with declaration for GazeEstimation Class
+ * @file gaze_estimation.hpp
  */
-#ifndef DYNAMIC_VINO_LIB__INFERENCES__GAZE_DETECTION_HPP_
-#define DYNAMIC_VINO_LIB__INFERENCES__GAZE_DETECTION_HPP_
+#ifndef DYNAMIC_VINO_LIB__INFERENCES__GAZE_ESTIMATION_HPP_
+#define DYNAMIC_VINO_LIB__INFERENCES__GAZE_ESTIMATION_HPP_
 #include <memory>
 #include <vector>
 #include <string>
-#include "dynamic_vino_lib/models/gaze_detection_model.h"
+#include "dynamic_vino_lib/models/gaze_estimation_model.h"
 #include "dynamic_vino_lib/engines/engine.h"
 #include "dynamic_vino_lib/inferences/base_inference.h"
 #include "inference_engine.hpp"
@@ -30,14 +30,14 @@
 namespace dynamic_vino_lib
 {
 /**
- * @class GazeDetectionResult
+ * @class GazeEstimationResult
  * @brief Class for storing and processing gaze detection result.
  */
-class GazeDetectionResult : public Result
+class GazeEstimationResult : public Result
 {
 public:
-  friend class GazeDetection;
-  explicit GazeDetectionResult(const cv::Rect& location);
+  friend class GazeEstimation;
+  explicit GazeEstimationResult(const cv::Rect& location);
   std::vector<cv::Point2i> getGaze() const
   {
     //TODO
@@ -49,19 +49,19 @@ private:
   std::vector<cv::Point2i> landmark_points_;
 };
 /**
- * @class GazeDetection
+ * @class GazeEstimation
  * @brief Class to load gaze detection model and perform gaze detection.
  */
-class GazeDetection : public BaseInference
+class GazeEstimation : public BaseInference
 {
 public:
-  using Result = dynamic_vino_lib::GazeDetectionResult;
-  GazeDetection();
-  ~GazeDetection() override;
+  using Result = dynamic_vino_lib::GazeEstimationResult;
+  GazeEstimation();
+  ~GazeEstimation() override;
   /**
    * @brief Load the gaze detection model.
    */
-  void loadNetwork(std::shared_ptr<Models::GazeDetectionModel>);
+  void loadNetwork(std::shared_ptr<Models::GazeEstimationModel>);
   /**
    * @brief Enqueue a frame to this class.
    * The frame will be buffered but not infered yet.
@@ -107,8 +107,8 @@ public:
   const std::vector<cv::Rect> getFilteredROIs(const std::string filter_conditions) const override;
 
 private:
-  std::shared_ptr<Models::GazeDetectionModel> valid_model_;
+  std::shared_ptr<Models::GazeEstimationModel> valid_model_;
   std::vector<Result> results_;
 };
 }  // namespace dynamic_vino_lib
-#endif  // DYNAMIC_VINO_LIB__INFERENCES__GAZE_DETECTION_HPP_
+#endif  // DYNAMIC_VINO_LIB__INFERENCES__GAZE_ESTIMATION_HPP_

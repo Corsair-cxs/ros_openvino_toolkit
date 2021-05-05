@@ -34,6 +34,7 @@
 #include "dynamic_vino_lib/inferences/object_segmentation.h"
 #include "dynamic_vino_lib/inferences/person_reidentification.h"
 #include "dynamic_vino_lib/inferences/landmarks_detection.h"
+#include "dynamic_vino_lib/inferences/gaze_estimation.h"
 #include "dynamic_vino_lib/inferences/face_reidentification.h"
 #include "dynamic_vino_lib/inferences/person_attribs_detection.h"
 #include "dynamic_vino_lib/inferences/vehicle_attribs_detection.h"
@@ -95,6 +96,12 @@ public:
    * @brief Generate output content according to the landmarks detection result.
    */
   virtual void accept(const std::vector<dynamic_vino_lib::LandmarksDetectionResult>&)
+  {
+  }
+  /**
+   * @brief Generate output content according to the landmarks detection result.
+   */
+  virtual void accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>&)
   {
   }
   /**

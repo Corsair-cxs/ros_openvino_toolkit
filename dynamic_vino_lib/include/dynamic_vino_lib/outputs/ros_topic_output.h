@@ -100,6 +100,12 @@ public:
   void accept(const std::vector<dynamic_vino_lib::LandmarksDetectionResult>&) override;
   /**
    * @brief Generate ros topic infomation according to
+   * the landmark detection result.
+   * @param[in] results a bundle of person landmarks detection result.
+   */
+  void accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>&) override;
+  /**
+   * @brief Generate ros topic infomation according to
    * the face reidentification result.
    * @param[in] results a bundle of face reidentification results.
    */

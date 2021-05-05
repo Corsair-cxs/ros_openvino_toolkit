@@ -13,19 +13,19 @@
 // limitations under the License.
 
 /**
- * @brief a header file with declaration of GazeDetectionModel class
- * @file gaze_detection_model.cpp
+ * @brief a header file with declaration of GazeEstimationModel class
+ * @file gaze_estimation_model.cpp
  */
 #include <string>
-#include "dynamic_vino_lib/models/gaze_detection_model.h"
+#include "dynamic_vino_lib/models/gaze_estimation_model.h"
 #include "dynamic_vino_lib/slog.h"
 // Validated Gaze Detection Network
-Models::GazeDetectionModel::GazeDetectionModel(const std::string& model_loc, int max_batch_size)
+Models::GazeEstimationModel::GazeEstimationModel(const std::string& model_loc, int max_batch_size)
   : BaseModel(model_loc, max_batch_size)
 {
 }
 
-bool Models::LandmarksDetectionModel::updateLayerProperty(InferenceEngine::CNNNetReader::Ptr net_reader)
+bool Models::GazeEstimationModel::updateLayerProperty(InferenceEngine::CNNNetReader::Ptr net_reader)
 {
   //INPUT
   InferenceEngine::InputsDataMap input_info_map(net_reader->getNetwork().getInputsInfo());
@@ -57,7 +57,7 @@ bool Models::LandmarksDetectionModel::updateLayerProperty(InferenceEngine::CNNNe
   return true;
 }
 
-const std::string Models::GazeDetectionModel::getModelCategory() const
+const std::string Models::GazeEstimationModel::getModelCategory() const
 {
   return "Gaze Detection";
 }
