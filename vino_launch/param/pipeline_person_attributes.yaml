@@ -1,7 +1,8 @@
 Pipelines:
 - name: object
   inputs: [Image]
-  input_path: /opt/openvino_toolkit/ros_openvino_toolkit/data/images/team.jpg
+  # input_path: /opt/openvino_toolkit/ros_openvino_toolkit/data/images/team.jpg
+  input_path: /home/cxs/Pictures/mmexport1613136185050.jpg
   infers:
     - name: PersonAttribsDetection
       model: /opt/openvino_toolkit/models/intel/person-attributes-recognition-crossroad-0230/FP16/person-attributes-recognition-crossroad-0230.xml

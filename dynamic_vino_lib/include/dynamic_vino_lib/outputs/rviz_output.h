@@ -73,6 +73,18 @@ public:
   void accept(const std::vector<dynamic_vino_lib::FaceReidentificationResult>&) override;
   /**
    * @brief Generate rviz output content according to
+   * the Landmarks Detection result.
+   * @param[in] A face LandmarksDetectionResult result objetc.
+   */
+  void accept(const std::vector<dynamic_vino_lib::LandmarksDetectionResult>&) override;
+  /**
+   * @brief Generate rviz output content according to
+   * the Gaze Estimation Result.
+   * @param[in] A face GazeEstimationResult result objetc.
+   */
+  void accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>&) override;
+  /**
+   * @brief Generate rviz output content according to
    * the face detection result.
    * @param[in] A face detection result objetc.
    */

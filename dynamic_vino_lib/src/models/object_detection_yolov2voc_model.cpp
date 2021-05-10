@@ -127,7 +127,7 @@ bool Models::ObjectDetectionYolov2Model::enqueue(const std::shared_ptr<Engines::
 }
 
 bool Models::ObjectDetectionYolov2Model::matToBlob(const cv::Mat& orig_image, const cv::Rect&, float scale_factor,
-                                                   int batch_index, const std::shared_ptr<Engines::Engine>& engine)
+                                                int batch_index, const std::shared_ptr<Engines::Engine>& engine)
 {
   if (engine == nullptr)
   {
