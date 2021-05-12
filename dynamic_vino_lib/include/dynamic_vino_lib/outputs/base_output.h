@@ -97,6 +97,12 @@ public:
    */
   virtual void accept(const std::vector<dynamic_vino_lib::LandmarksDetectionResult>&)
   {
+  }  
+  /**
+   * @brief Generate output content according to the gaze estimation result.
+   */
+  virtual void accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>&)
+  {
   }
   /**
    * @brief Generate output content according to the landmarks detection result.
