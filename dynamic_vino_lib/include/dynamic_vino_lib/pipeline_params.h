@@ -30,7 +30,7 @@
 #include <string>
 
 #include "dynamic_vino_lib/inferences/base_inference.h"
-#include "dynamic_vino_lib/inputs/standard_camera.h"
+#include "dynamic_vino_lib/inputs/base_input.h"
 #include "dynamic_vino_lib/outputs/base_output.h"
 #include "opencv2/opencv.hpp"
 #include "vino_param_lib/param_manager.h"
@@ -38,7 +38,7 @@
 const char kInputType_Image[] = "Image";
 const char kInputType_Video[] = "Video";
 const char kInputType_StandardCamera[] = "StandardCamera";
-// const char kInputType_IpCamera[] = "IpCamera";
+const char kInputType_IpCamera[] = "IpCamera";
 const char kInputType_CameraTopic[] = "RealSenseCameraTopic";
 const char kInputType_ImageTopic[] = "ImageTopic";
 const char kInputType_RealSenseCamera[] = "RealSenseCamera";

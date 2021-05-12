@@ -30,7 +30,8 @@
 #include <string>
 
 #include "dynamic_vino_lib/inferences/base_inference.h"
-#include "dynamic_vino_lib/inputs/standard_camera.h"
+// #include "dynamic_vino_lib/inputs/standard_camera.h"
+#include "dynamic_vino_lib/inputs/base_input.h"
 #include "dynamic_vino_lib/outputs/base_output.h"
 #include "dynamic_vino_lib/pipeline_params.h"
 #include "opencv2/opencv.hpp"
