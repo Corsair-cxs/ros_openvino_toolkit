@@ -105,12 +105,6 @@ public:
   {
   }
   /**
-   * @brief Generate output content according to the landmarks detection result.
-   */
-  virtual void accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>&)
-  {
-  }
-  /**
   * @brief Generate output content according to the face detection result.
   */
   virtual void accept(const std::vector<dynamic_vino_lib::ObjectDetectionResult>&)
