@@ -30,6 +30,10 @@ dynamic_vino_lib::PersonReidentificationResult::PersonReidentificationResult(con
 {
 }
 
+dynamic_vino_lib::PersonReidentification::PersonReidentification() : dynamic_vino_lib::BaseInference()
+{
+}
+
 // PersonReidentification
 dynamic_vino_lib::PersonReidentification::PersonReidentification(double match_thresh)
   : dynamic_vino_lib::BaseInference()

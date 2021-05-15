@@ -395,20 +395,32 @@ PipelineManager::createObjectSegmentation(const Params::ParamManager::InferenceR
   return segmentation_inference_ptr;
 }
 
+// std::shared_ptr<dynamic_vino_lib::BaseInference>
+// PipelineManager::createPersonReidentification(const Params::ParamManager::InferenceRawData& infer)
+// {
+//   std::shared_ptr<Models::PersonReidentificationModel> person_reidentification_model;
+//   std::shared_ptr<dynamic_vino_lib::PersonReidentification> reidentification_inference_ptr;
+//   slog::debug << "for test in createPersonReidentification()" << slog::endl;
+//   person_reidentification_model = std::make_shared<Models::PersonReidentificationModel>(infer.model, infer.batch);
+//   person_reidentification_model->modelInit();
+//   slog::info << "Reidentification model initialized" << slog::endl;
+//   auto person_reidentification_engine = engine_manager_.createEngine(infer.engine, person_reidentification_model);
+//   reidentification_inference_ptr = std::make_shared<dynamic_vino_lib::PersonReidentification>(infer.confidence_threshold);
+//   reidentification_inference_ptr->loadNetwork(person_reidentification_model);
+//   reidentification_inference_ptr->loadEngine(person_reidentification_engine);
+
+//   return reidentification_inference_ptr;
+// }
+
 std::shared_ptr<dynamic_vino_lib::BaseInference>
 PipelineManager::createPersonReidentification(const Params::ParamManager::InferenceRawData& infer)
 {
-  std::shared_ptr<Models::PersonReidentificationModel> person_reidentification_model;
-  std::shared_ptr<dynamic_vino_lib::PersonReidentification> reidentification_inference_ptr;
-  slog::debug << "for test in createPersonReidentification()" << slog::endl;
-  person_reidentification_model = std::make_shared<Models::PersonReidentificationModel>(infer.model, infer.batch);
-  person_reidentification_model->modelInit();
-  slog::info << "Reidentification model initialized" << slog::endl;
-  auto person_reidentification_engine = engine_manager_.createEngine(infer.engine, person_reidentification_model);
-  reidentification_inference_ptr =
-      std::make_shared<dynamic_vino_lib::PersonReidentification>(infer.confidence_threshold);
-  reidentification_inference_ptr->loadNetwork(person_reidentification_model);
-  reidentification_inference_ptr->loadEngine(person_reidentification_engine);
+  auto model = std::make_shared<Models::PersonReidentificationModel>(infer.model, infer.batch);
+  model->modelInit();
+  auto engine = engine_manager_.createEngine(infer.engine, model);
+  auto reidentification_inference_ptr = std::make_shared<dynamic_vino_lib::PersonReidentification>(infer.confidence_threshold);
+  reidentification_inference_ptr->loadNetwork(model);
+  reidentification_inference_ptr->loadEngine(engine);
 
   return reidentification_inference_ptr;
 }

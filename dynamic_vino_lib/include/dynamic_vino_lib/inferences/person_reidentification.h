@@ -55,6 +55,7 @@ class PersonReidentification : public BaseInference
 {
 public:
   using Result = dynamic_vino_lib::PersonReidentificationResult;
+  PersonReidentification();
   explicit PersonReidentification(double);
   ~PersonReidentification() override;
   /**
