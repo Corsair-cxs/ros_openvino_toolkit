@@ -1,0 +1,22 @@
+Pipelines:
+- name: segmentation
+  inputs: [StandardCamera]
+  infers:
+    - name: ObjectSegmentation
+      model: /opt/openvino_toolkit/models/public/deeplabv3/FP16/deeplabv3.xml
+      engine: CPU
+      label: to/be/set/xxx.labels
+      batch: 1
+      confidence_threshold: 0.5
+  outputs: [ImageWindow, RosTopic, RViz]
+  connects:
+    - left: StandardCamera
+      right: [ObjectSegmentation]
+    - left: ObjectSegmentation
+      right: [ImageWindow]
+    - left: ObjectSegmentation
+      right: [RosTopic]
+    - left: ObjectSegmentation
+      right: [RViz]
+
+OpenvinoCommon:
