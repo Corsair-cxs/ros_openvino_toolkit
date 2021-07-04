@@ -1,6 +1,8 @@
 Pipelines:
 - name: people
-  inputs: [StandardCamera]
+  # inputs: [StandardCamera]
+  inputs: [Image]
+  input_path: /home/cxs/Pictures/x3c_street_640x360.png
   infers:
     - name: FaceDetection
       model: /opt/openvino_toolkit/models/intel/face-detection-adas-0001/FP16/face-detection-adas-0001.xml
@@ -10,7 +12,8 @@ Pipelines:
       confidence_threshold: 0.5
       enable_roi_constraint: true # set enable_roi_constraint to false if you don't want to make the inferred ROI (region of interest) constrained into the camera frame
     - name: LandmarksDetection
-      model: /opt/openvino_toolkit/models/intel/landmarks-regression-retail-0009/FP16/landmarks-regression-retail-0009.xml
+      # model: /opt/openvino_toolkit/models/intel/landmarks-regression-retail-0009/FP16/landmarks-regression-retail-0009.xml
+      model: /opt/openvino_toolkit/models/intel/facial-landmarks-35-adas-0002/FP32/facial-landmarks-35-adas-0002.xml
       engine: CPU
       label: to/be/set/xxx.labels
       batch: 1
@@ -22,7 +25,8 @@ Pipelines:
       confidence_threshold: 0.9
   outputs: [ImageWindow, RosTopic, RViz]
   connects:
-    - left: StandardCamera
+    # - left: StandardCamera
+    - left: Image
       right: [FaceDetection]
     - left: FaceDetection
       right: [FaceReidentification,LandmarksDetection,ImageWindow, RosTopic, RViz]

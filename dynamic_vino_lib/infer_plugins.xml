@@ -1,0 +1,41 @@
+<library path="lib/libdynamic_vino_lib">
+  <class name="dynamic_vino_lib/AgeGenderDetection" type="dynamic_vino_lib::AgeGenderDetection" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a AgeGenderDetection plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/EmotionsDetection" type="dynamic_vino_lib::EmotionsDetection" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a EmotionsDetection plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/FaceDetection" type="dynamic_vino_lib::FaceDetection" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a FaceDetection plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/FaceReidentification" type="dynamic_vino_lib::FaceReidentification" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a FaceReidentification plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/GazeEstimation" type="dynamic_vino_lib::GazeEstimation" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a GazeEstimation plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/HeadPoseDetection" type="dynamic_vino_lib::HeadPoseDetection" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a HeadPoseDetection plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/LandmarksDetection" type="dynamic_vino_lib::LandmarksDetection" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a LandmarksDetection plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/LicensePlateDetection" type="dynamic_vino_lib::LicensePlateDetection" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a LicensePlateDetection plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/ObjectDetection" type="dynamic_vino_lib::ObjectDetection" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a ObjectDetection plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/ObjectSegmentation" type="dynamic_vino_lib::ObjectSegmentation" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a ObjectSegmentation plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/PersonAttribsDetection" type="dynamic_vino_lib::PersonAttribsDetection" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a PersonAttribsDetection plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/PersonReidentification" type="dynamic_vino_lib::PersonReidentification" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a PersonReidentification plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/VehicleAttribsDetection" type="dynamic_vino_lib::VehicleAttribsDetection" base_class_type="dynamic_vino_lib::BaseInference">
+    <description>This is a VehicleAttribsDetection plugin.</description>
+  </class>
+</library>

@@ -19,11 +19,9 @@
  * @file image_topic.cpp
  */
 
-#include "dynamic_vino_lib/inputs/realsense_camera_topic.h"
-#include "dynamic_vino_lib/slog.h"
 #include <cv_bridge/cv_bridge.h>
-#include <image_transport/image_transport.h>
-#include <memory>
+#include "dynamic_vino_lib/inputs/image_topic.h"
+#include "dynamic_vino_lib/slog.h"
 
 #define INPUT_TOPIC "/camera/color/image_raw"
 
@@ -31,7 +29,12 @@ bool Input::ImageTopic::initialize()
 {
   slog::info << "before Image Topic init" << slog::endl;
   std::shared_ptr<image_transport::ImageTransport> it = std::make_shared<image_transport::ImageTransport>(nh_);
-  // sub_ = it->subscribe(<sensor_msgs::Image>(INPUT_TOPIC, 1, &ImageTopic::cb, this));
+  const int ind = 5;
+  // sub_ = it->subscribe(INPUT_TOPIC, 1, boost::bind(&ImageTopic::cb, this, _1, ind));
+
+  // sub_ = it->subscribe(INPUT_TOPIC, 1, &Input::ImageTopic::cb, this);
+  // sub_ = it->subscribe(INPUT_TOPIC, 1, boost::bind(&Input::ImageTopic::cb,this,_1));
+  sub_ = it->subscribe(INPUT_TOPIC, 1, &ImageTopic::cb, this);
 
   return true;
 }
@@ -44,7 +47,7 @@ bool Input::ImageTopic::initialize(size_t width, size_t height)
   return initialize();
 }
 
-void Input::ImageTopic::cb(const sensor_msgs::Image::Ptr image_msg)
+void Input::ImageTopic::cb(const sensor_msgs::Image::ConstPtr& image_msg)
 {
   slog::debug << "Receiving a new image from Camera topic." << slog::endl;
   // setHeader(image_msg->header);

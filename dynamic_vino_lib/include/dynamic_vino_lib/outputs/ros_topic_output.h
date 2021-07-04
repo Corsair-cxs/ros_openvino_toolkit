@@ -44,6 +44,8 @@
 #include <people_msgs/LicensePlate.h>
 #include <people_msgs/Landmark.h>
 #include <people_msgs/LandmarkStamped.h>
+#include <people_msgs/HumanPose.h>
+#include <people_msgs/HumanPoseStamped.h>
 #include <ros/ros.h>
 
 #include <memory>
@@ -100,6 +102,12 @@ public:
   void accept(const std::vector<dynamic_vino_lib::LandmarksDetectionResult>&) override;
   /**
    * @brief Generate ros topic infomation according to
+   * the landmark detection result.
+   * @param[in] results a bundle of person landmarks detection result.
+   */
+  void accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>&) override;
+  /**
+   * @brief Generate ros topic infomation according to
    * the face reidentification result.
    * @param[in] results a bundle of face reidentification results.
    */
@@ -146,6 +154,12 @@ public:
    * @param[in] An head pose detection result objetc.
    */
   void accept(const std::vector<dynamic_vino_lib::ObjectDetectionResult>&) override;
+  /**
+   * @brief Generate ros topic infomation according to
+   * the human pose estimation result.
+   * @param[in] An human pose estimation result objetc.
+   */
+  void accept(const std::vector<dynamic_vino_lib::HumanPoseResult>&) override;
 
 private:
   std_msgs::Header getHeader();
@@ -179,6 +193,8 @@ protected:
   std::shared_ptr<people_msgs::VehicleAttribsStamped> vehicle_attribs_topic_;
   ros::Publisher pub_landmarks_;
   std::shared_ptr<people_msgs::LandmarkStamped> landmarks_topic_;
+  ros::Publisher pub_human_pose_;
+  std::shared_ptr<people_msgs::HumanPoseStamped> human_pose_msg_ptr_;
 };
 }  // namespace Outputs
 #endif  // DYNAMIC_VINO_LIB_OUTPUTS_ROS_TOPIC_OUTPUT_H

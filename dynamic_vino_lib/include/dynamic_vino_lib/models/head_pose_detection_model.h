@@ -34,6 +34,7 @@ namespace Models
 class HeadPoseDetectionModel : public BaseModel
 {
 public:
+  HeadPoseDetectionModel();
   HeadPoseDetectionModel(const std::string& model_loc, int batch_size = 1);
 
   /**

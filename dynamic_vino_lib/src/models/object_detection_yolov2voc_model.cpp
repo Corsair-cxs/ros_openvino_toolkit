@@ -21,8 +21,7 @@
 #include "dynamic_vino_lib/models/object_detection_yolov2voc_model.h"
 #include "dynamic_vino_lib/slog.h"
 // Validated Object Detection Network
-Models::ObjectDetectionYolov2Model::ObjectDetectionYolov2Model(const std::string& model_loc, int max_batch_size)
-  : ObjectDetectionModel(model_loc, max_batch_size)
+Models::ObjectDetectionYolov2Model::ObjectDetectionYolov2Model() : BaseModel()
 {
 }
 
@@ -127,7 +126,7 @@ bool Models::ObjectDetectionYolov2Model::enqueue(const std::shared_ptr<Engines::
 }
 
 bool Models::ObjectDetectionYolov2Model::matToBlob(const cv::Mat& orig_image, const cv::Rect&, float scale_factor,
-                                                   int batch_index, const std::shared_ptr<Engines::Engine>& engine)
+                                                int batch_index, const std::shared_ptr<Engines::Engine>& engine)
 {
   if (engine == nullptr)
   {
@@ -252,7 +251,7 @@ bool Models::ObjectDetectionYolov2Model::fetchResults(const std::shared_ptr<Engi
 
     auto side_square = side * side;
     // --------------------------- Parsing YOLO Region output -------------------------------------
-    std::vector<Result> raw_results;
+    std::vector<dynamic_vino_lib::ObjectDetectionResult> raw_results;
     for (int i = 0; i < side_square; ++i)
     {
       int row = i / side;
@@ -295,7 +294,7 @@ bool Models::ObjectDetectionYolov2Model::fetchResults(const std::shared_ptr<Engi
           float height_resized = height / input_height * frame_size.height;
 
           cv::Rect r(x_min_resized, y_min_resized, width_resized, height_resized);
-          Result result(r);
+          dynamic_vino_lib::ObjectDetectionResult result(r);
           // result.label_ = j;
           std::string label = j < labels.size() ? labels[j] : std::string("label #") + std::to_string(j);
           result.setLabel(label);

@@ -1,7 +1,7 @@
 Pipelines:
 - name: segmentation
   inputs: [Video]
-  input_path: /home/iei/Videos/object_segmentation.MP4 
+  input_path: /home/cxs/Videos/MOT16-06-raw.webm
   infers:
     - name: ObjectSegmentation
       model: /opt/openvino_toolkit/models/public/deeplabv3/FP16/deeplabv3.xml

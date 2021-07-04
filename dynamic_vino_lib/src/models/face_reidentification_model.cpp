@@ -20,8 +20,7 @@
 #include "dynamic_vino_lib/models/face_reidentification_model.h"
 #include "dynamic_vino_lib/slog.h"
 // Validated Face Reidentification Network
-Models::FaceReidentificationModel::FaceReidentificationModel(const std::string& model_loc, int max_batch_size)
-  : BaseModel(model_loc, max_batch_size)
+Models::FaceReidentificationModel::FaceReidentificationModel() : BaseModel()
 {
 }
 

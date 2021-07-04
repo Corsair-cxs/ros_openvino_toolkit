@@ -28,37 +28,32 @@
 #include "dynamic_vino_lib/slog.h"
 
 // Validated Base Network
-Models::BaseModel::BaseModel(const std::string& model_loc, int max_batch_size)
-  : model_loc_(model_loc), max_batch_size_(max_batch_size), ModelAttribute(model_loc)
+Models::BaseModel::BaseModel()
 {
-  slog::debug << "model location:  " << model_loc_ << slog::endl;
-  if (model_loc.empty())
-  {
-    throw std::logic_error("model file name is empty!");
-  }
-
-  net_reader_ = std::make_shared<InferenceEngine::CNNNetReader>();
 }
 
-void Models::BaseModel::modelInit()
+void Models::BaseModel::modelInit(const std::string& model_loc, int max_batch_size)
 {
-  slog::info << "Loading network files: " << model_loc_ << slog::endl;
+  setModelName(model_loc);
+  setMaxBatchSize(max_batch_size);
+  net_reader_ = std::make_shared<InferenceEngine::CNNNetReader>();
+  slog::info << "Loading network files: " << model_loc << slog::endl;
 
   // Read network model
-  net_reader_->ReadNetwork(model_loc_);
+  net_reader_->ReadNetwork(model_loc);
   // Extract model name and load it's weights
   // remove extension
-  size_t last_index = model_loc_.find_last_of(".");
-  std::string raw_name = model_loc_.substr(0, last_index);
+  size_t last_index = model_loc.find_last_of(".");
+  std::string raw_name = model_loc.substr(0, last_index);
   std::string bin_file_name = raw_name + ".bin";
   net_reader_->ReadWeights(bin_file_name);
   // Read labels (if any)
   std::string label_file_name = raw_name + ".labels";
   loadLabelsFromFile(label_file_name);
 
-  // Set batch size to given max_batch_size_
-  slog::info << "Batch size is set to  " << max_batch_size_ << slog::endl;
-  net_reader_->getNetwork().setBatchSize(max_batch_size_);
+  // Set batch size to given max_batch_size
+  slog::info << "Batch size is set to  " << max_batch_size << slog::endl;
+  net_reader_->getNetwork().setBatchSize(max_batch_size);
 
   updateLayerProperty(net_reader_);
 }
@@ -84,7 +79,3 @@ bool Models::BaseModel::updateLayerProperty(
 }
 #endif
 
-Models::ObjectDetectionModel::ObjectDetectionModel(const std::string& model_loc, int max_batch_size)
-  : BaseModel(model_loc, max_batch_size)
-{
-}

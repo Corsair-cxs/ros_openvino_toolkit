@@ -20,8 +20,7 @@
 #include "dynamic_vino_lib/models/person_attribs_detection_model.h"
 #include "dynamic_vino_lib/slog.h"
 // Validated Person Attributes Detection Network
-Models::PersonAttribsDetectionModel::PersonAttribsDetectionModel(const std::string& model_loc, int max_batch_size)
-  : BaseModel(model_loc, max_batch_size)
+Models::PersonAttribsDetectionModel::PersonAttribsDetectionModel() : BaseModel()
 {
 }
 

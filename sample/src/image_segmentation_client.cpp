@@ -47,10 +47,10 @@ int main(int argc, char** argv)
          << srv.response.segmentation.objects_vector[i].probability * 100 << "%";
       ROS_INFO("%d: object: %s", i, srv.response.segmentation.objects_vector[i].object_name.c_str());
       ROS_INFO("prob: %f", srv.response.segmentation.objects_vector[i].probability);
-      ROS_INFO("location: (%d, %d, %d, %d)", srv.response.segmentation.objects_vector[i].roi.x_offset,
-               srv.response.segmentation.objects_vector[i].roi.y_offset,
-               srv.response.segmentation.objects_vector[i].roi.width,
-               srv.response.segmentation.objects_vector[i].roi.height);
+      // ROS_INFO("location: (%d, %d, %d, %d)", srv.response.segmentation.objects_vector[i].roi.x_offset,
+      //          srv.response.segmentation.objects_vector[i].roi.y_offset,
+      //          srv.response.segmentation.objects_vector[i].roi.width,
+      //          srv.response.segmentation.objects_vector[i].roi.height);
     }
   }
   else

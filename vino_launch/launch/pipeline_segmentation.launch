@@ -1,7 +1,7 @@
 <launch>
   <arg name="param_file" value="$(find vino_launch)/param/pipeline_segmentation.yaml" />
 
-  <group>
+  <!-- <group>
      <arg name="color_width" default="640" />
      <arg name="color_height" default="480" />
 
@@ -9,7 +9,7 @@
          <arg name="color_width" value="$(arg color_width)" />
          <arg name="color_height" value="$(arg color_height)" />
      </include>
-  </group>
+  </group> -->
   <node pkg="dynamic_vino_sample" type="pipeline_with_params"
         name="pipeline_with_params" output="screen">
     <param name="param_file" value="$(arg param_file)" />

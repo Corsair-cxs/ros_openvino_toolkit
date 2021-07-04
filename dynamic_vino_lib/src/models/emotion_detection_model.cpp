@@ -24,8 +24,8 @@
 #include "dynamic_vino_lib/slog.h"
 
 // Validated Emotions Detection Network
-Models::EmotionDetectionModel::EmotionDetectionModel(const std::string& model_loc, int max_batch_size)
-  : BaseModel(model_loc, max_batch_size)
+
+Models::EmotionDetectionModel::EmotionDetectionModel() : BaseModel()
 {
 }
 

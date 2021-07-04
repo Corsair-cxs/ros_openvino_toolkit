@@ -38,13 +38,13 @@ class LandmarksDetectionResult : public Result
 public:
   friend class LandmarksDetection;
   explicit LandmarksDetectionResult(const cv::Rect& location);
-  std::vector<cv::Point> getLandmarks() const
+  std::vector<cv::Point2i> getLandmarks() const
   {
     return landmark_points_;
   }
 
 private:
-  std::vector<cv::Point> landmark_points_;
+  std::vector<cv::Point2i> landmark_points_;
 };
 /**
  * @class LandmarksDetection
@@ -107,6 +107,7 @@ public:
 private:
   std::shared_ptr<Models::LandmarksDetectionModel> valid_model_;
   std::vector<Result> results_;
+  void adjustBoundingBox(cv::Rect& boundingBox);
 };
 }  // namespace dynamic_vino_lib
 #endif  // DYNAMIC_VINO_LIB__INFERENCES__LANDMARKS_DETECTION_HPP_

@@ -119,6 +119,10 @@ private:
   createLicensePlateDetection(const Params::ParamManager::InferenceRawData& infer);
   std::shared_ptr<dynamic_vino_lib::BaseInference>
   createLandmarksDetection(const Params::ParamManager::InferenceRawData& infer);
+  std::shared_ptr<dynamic_vino_lib::BaseInference>
+  createGazeEstimation(const Params::ParamManager::InferenceRawData& infer);
+  std::shared_ptr<dynamic_vino_lib::BaseInference> 
+  createHumanPoseEstimation(const Params::ParamManager::InferenceRawData& infer);
 
   std::map<std::string, PipelineData> pipelines_;
   Engines::EngineManager engine_manager_;

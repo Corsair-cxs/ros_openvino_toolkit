@@ -48,6 +48,8 @@ Outputs::RosTopicOutput::RosTopicOutput(std::string pipeline_name) : pipeline_na
       "/openvino_toolkit/" + pipeline_name_ + "/detected_vehicles_attribs", 16);
   pub_landmarks_ = nh_.advertise<people_msgs::LandmarkStamped>(
       "/openvino_toolkit/" + pipeline_name_ + "/detected_landmarks", 16);
+  pub_human_pose_ = nh_.advertise<people_msgs::HumanPoseStamped>(
+      "/openvino_toolkit/" + pipeline_name_ + "/human_poses", 16);
 
   emotions_topic_ = NULL;
   faces_topic_ = NULL;
@@ -61,6 +63,7 @@ Outputs::RosTopicOutput::RosTopicOutput(std::string pipeline_name) : pipeline_na
   license_plate_topic_ = NULL;
   vehicle_attribs_topic_ = NULL;
   landmarks_topic_ = NULL;
+  human_pose_msg_ptr_ = NULL;
 }
 
 void Outputs::RosTopicOutput::feedFrame(const cv::Mat& frame)
@@ -162,10 +165,10 @@ void Outputs::RosTopicOutput::accept(const std::vector<dynamic_vino_lib::ObjectS
   {
     // slog::info << ">";
     auto loc = r.getLocation();
-    object.roi.x_offset = loc.x;
-    object.roi.y_offset = loc.y;
-    object.roi.width = loc.width;
-    object.roi.height = loc.height;
+    // object.roi.x_offset = loc.x;
+    // object.roi.y_offset = loc.y;
+    // object.roi.width = loc.width;
+    // object.roi.height = loc.height;
     object.object_name = r.getLabel();
     object.probability = r.getConfidence();
     cv::Mat mask = r.getMask();
@@ -270,10 +273,10 @@ void Outputs::RosTopicOutput::accept(const std::vector<dynamic_vino_lib::ObjectD
   for (auto r : results)
   {
     auto loc = r.getLocation();
-    object.roi.x_offset = loc.x;
-    object.roi.y_offset = loc.y;
-    object.roi.width = loc.width;
-    object.roi.height = loc.height;
+    // object.roi.x_offset = loc.x;
+    // object.roi.y_offset = loc.y;
+    // object.roi.width = loc.width;
+    // object.roi.height = loc.height;
     object.object.object_name = r.getLabel();
     object.object.probability = r.getConfidence();
     detected_objects_topic_->objects_vector.push_back(object);
@@ -292,7 +295,7 @@ void Outputs::RosTopicOutput::accept(const std::vector<dynamic_vino_lib::Landmar
     landmark.roi.y_offset = loc.y;
     landmark.roi.width = loc.width;
     landmark.roi.height = loc.height;
-    std::vector<cv::Point> landmark_points = r.getLandmarks();
+    std::vector<cv::Point2i> landmark_points = r.getLandmarks();
     for (auto pt : landmark_points)
     {
       geometry_msgs::Point point;
@@ -301,6 +304,66 @@ void Outputs::RosTopicOutput::accept(const std::vector<dynamic_vino_lib::Landmar
       landmark.landmark_points.push_back(point);
     }
     landmarks_topic_->landmarks.push_back(landmark);
+  }
+}
+
+void Outputs::RosTopicOutput::accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>& results)
+{
+  landmarks_topic_ = std::make_shared<people_msgs::LandmarkStamped>();
+  people_msgs::Landmark landmark;
+  for (auto& r : results)
+  {
+    // slog::info << ">";
+    auto loc = r.getLocation();
+    landmark.roi.x_offset = loc.x;
+    landmark.roi.y_offset = loc.y;
+    landmark.roi.width = loc.width;
+    landmark.roi.height = loc.height;
+    std::vector<cv::Point2i> landmark_points = r.getGaze();
+    for (auto pt : landmark_points)
+    {
+      geometry_msgs::Point point;
+      point.x = pt.x;
+      point.y = pt.y;
+      landmark.landmark_points.push_back(point);
+    }
+    landmarks_topic_->landmarks.push_back(landmark);
+  }
+}
+
+void Outputs::RosTopicOutput::accept(const std::vector<dynamic_vino_lib::HumanPoseResult>& results)
+{
+  human_pose_msg_ptr_ = std::make_shared<people_msgs::HumanPoseStamped>();
+
+  for (auto r : results)
+  {
+    people_msgs::HumanPose hp;
+
+    auto loc = r.getLocation();
+    hp.roi.x_offset = loc.x;
+    hp.roi.y_offset = loc.y;
+    hp.roi.width = loc.width;
+    hp.roi.height = loc.height;
+    hp.score = r.getScore();
+    
+    auto p = people_msgs::HumanPoseKeypoint();// geometry_msgs::Point();
+    p.position.z = -1;
+    for (auto kp : r.keypoints)
+    {
+      p.position.x = kp.x;
+      p.position.y = kp.y;
+      if (kp.x >= 0)
+      {
+        p.score = kp.score;
+      }
+      else
+      {
+        p.score = 0;
+      }
+      
+      hp.keypoints.push_back(p);
+    }
+    human_pose_msg_ptr_->humanposes.push_back(hp);
   }
 }
 
@@ -411,6 +474,15 @@ void Outputs::RosTopicOutput::handleOutput()
 
     pub_face_reid_.publish(face_reid_msg);
     face_reid_topic_ = nullptr;
+  }
+  if (human_pose_msg_ptr_ != nullptr)
+  {
+    people_msgs::HumanPoseStamped human_pose_msg;
+    human_pose_msg.header = header;
+    human_pose_msg.humanposes.swap(human_pose_msg_ptr_->humanposes);
+
+    pub_human_pose_.publish(human_pose_msg);
+    human_pose_msg_ptr_ = nullptr;
   }
 }
 

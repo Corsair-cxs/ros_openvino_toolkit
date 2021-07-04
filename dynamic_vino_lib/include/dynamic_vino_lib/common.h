@@ -64,57 +64,6 @@ inline std::string& trim(std::string& s)
   return s;
 }
 
-// TargetDevice is not in openvino2020.3.341
-#if 0 
-/**
-* @brief Converts string to TargetDevice
-* @param deviceName - string value representing device
-* @return TargetDevice value that corresponds to input string.
-*         eDefault in case no corresponding value was found
-*/
-static InferenceEngine::TargetDevice getDeviceFromStr(const std::string& deviceName)
-{
-  return InferenceEngine::TargetDeviceInfo::fromStr(deviceName);
-}
-
-/**
-* @brief Loads plugin from directories
-* @param pluginDirs - plugin paths
-* @param plugin - plugin name
-* @param device - device to infer on
-* @return Plugin pointer
-*/
-static InferenceEngine::InferenceEnginePluginPtr selectPlugin(const std::vector<std::string>& pluginDirs,
-                                                              const std::string& plugin,
-                                                              InferenceEngine::TargetDevice device)
-{
-  InferenceEngine::PluginDispatcher dispatcher(pluginDirs);
-
-  if (!plugin.empty())
-  {
-    return dispatcher.getPluginByName(plugin);
-  }
-  else
-  {
-    return dispatcher.getSuitablePlugin(device);
-  }
-}
-
-/**
- * @brief Loads plugin from directories
- * @param pluginDirs - plugin paths
- * @param plugin - plugin name
- * @param device - string representation of device to infer on
- * @return Plugin pointer
- */
-static UNUSED InferenceEngine::InferenceEnginePluginPtr selectPlugin(const std::vector<std::string>& pluginDirs,
-                                                                     const std::string& plugin,
-                                                                     const std::string& device)
-{
-  return selectPlugin(pluginDirs, plugin, getDeviceFromStr(device));
-}
-#endif
-
 /**
  * @brief Gets filename without extension
  * @param filepath - full file name
@@ -230,51 +179,6 @@ inline void printPluginVersion(InferenceEngine::InferenceEnginePluginPtr ptr, st
   ptr->GetVersion((const InferenceEngine::Version*&)pluginVersion);
   stream << pluginVersion << std::endl;
 }
-
-// TargetDevice is not in openvino2020
-#if 0
-static UNUSED std::vector<std::vector<size_t>> blobToImageOutputArray(InferenceEngine::TBlob<float>::Ptr output,
-                                                                      size_t* pWidth, size_t* pHeight,
-                                                                      size_t* pChannels)
-{
-  std::vector<std::vector<size_t>> outArray;
-  size_t W = output->dims().at(0);
-  size_t H = output->dims().at(1);
-  size_t C = output->dims().at(2);
-
-  // Get classes
-  const float* outData = output->data();
-  for (unsigned h = 0; h < H; h++)
-  {
-    std::vector<size_t> row;
-    for (unsigned w = 0; w < W; w++)
-    {
-      float max_value = outData[h * W + w];
-      size_t index = 0;
-      for (size_t c = 1; c < C; c++)
-      {
-        size_t dataIndex = c * H * W + h * W + w;
-        if (outData[dataIndex] > max_value)
-        {
-          index = c;
-          max_value = outData[dataIndex];
-        }
-      }
-      row.push_back(index);
-    }
-    outArray.push_back(row);
-  }
-
-  if (pWidth != nullptr)
-    *pWidth = W;
-  if (pHeight != nullptr)
-    *pHeight = H;
-  if (pChannels != nullptr)
-    *pChannels = C;
-
-  return outArray;
-}
-#endif
 
 /**
  * @class Color
@@ -647,20 +551,6 @@ static UNUSED void printPerformanceCounts(InferenceEngine::InferRequest request,
   auto perfomanceMap = request.GetPerformanceCounts();
   printPerformanceCounts(perfomanceMap, stream);
 }
-
-
-// TargetDevice is not in openvino2020
-#if 0
-/**
- * @deprecated
- */
-static UNUSED void printPerformanceCountsPlugin(InferenceEngine::InferenceEnginePluginPtr plugin, std::ostream& stream)
-{
-  std::map<std::string, InferenceEngine::InferenceEngineProfileInfo> perfomanceMap;
-  plugin->GetPerformanceCounts(perfomanceMap, nullptr);
-  printPerformanceCounts(perfomanceMap, stream);
-}
-#endif
 
 /**
  * @brief This class represents an object that is found by an object detection

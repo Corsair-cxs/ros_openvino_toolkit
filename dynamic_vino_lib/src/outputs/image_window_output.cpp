@@ -19,7 +19,7 @@
  * @file image_window_output.cpp
  */
 
-#include "dynamic_vino_lib/outputs/image_window_output.h"
+// #include "dynamic_vino_lib/outputs/image_window_output.h"
 #include <algorithm>
 #include <string>
 #include <vector>
@@ -87,23 +87,6 @@ void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::Vehi
     unsigned target_index = findOutput(result_rect);
     outputs_[target_index].rect = result_rect;
     outputs_[target_index].desc += ("[" + results[i].getColor() + "," + results[i].getType() + "]");
-  }
-}
-
-void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::FaceDetectionResult>& results)
-{
-  for (unsigned i = 0; i < results.size(); i++)
-  {
-    cv::Rect result_rect = results[i].getLocation();
-    unsigned target_index = findOutput(result_rect);
-    outputs_[target_index].rect = result_rect;
-    auto fd_conf = results[i].getConfidence();
-    if (fd_conf >= 0)
-    {
-      std::ostringstream ostream;
-      ostream << "[" << std::fixed << std::setprecision(3) << fd_conf << "]";
-      outputs_[target_index].desc += ostream.str();
-    }
   }
 }
 
@@ -209,36 +192,25 @@ void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::Obje
   }
 }
 
+void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::FaceDetectionResult>& results)
+{
+  for (unsigned i = 0; i < results.size(); i++)
+  {
+    cv::Rect result_rect = results[i].getLocation();
+    unsigned target_index = findOutput(result_rect);
+    outputs_[target_index].rect = result_rect;
+    auto fd_conf = results[i].getConfidence();
+    if (fd_conf >= 0)
+    {
+      std::ostringstream ostream;
+      ostream << "[" << std::fixed << std::setprecision(3) << fd_conf << "]";
+      outputs_[target_index].desc += ostream.str();
+    }
+  }
+}
+
 void Outputs::ImageWindowOutput::mergeMask(const std::vector<dynamic_vino_lib::ObjectSegmentationResult>& results)
 {
-  /*
-  std::map<std::string, int> class_color;
-  for (unsigned i = 0; i < results.size(); i++) {
-    std::string class_label = results[i].getLabel();
-    if (class_color.find(class_label) == class_color.end()) {
-      class_color[class_label] = class_color.size();
-    }
-    auto & color = colors_[class_color[class_label]];
-    const float alpha = 0.7f;
-    const float MASK_THRESHOLD = 0.5;
-
-    cv::Rect location = results[i].getLocation();
-    cv::Mat roi_img = frame_(location);
-    cv::Mat mask = results[i].getMask();
-    cv::Mat colored_mask(location.height, location.width, frame_.type());
-
-    for (int h = 0; h < mask.size().height; ++h) {
-      for (int w = 0; w < mask.size().width; ++w) {
-        for (int ch = 0; ch < colored_mask.channels(); ++ch) {
-          colored_mask.at<cv::Vec3b>(h, w)[ch] = mask.at<float>(h, w) > MASK_THRESHOLD ?
-            255 * color[ch] :
-            roi_img.at<cv::Vec3b>(h, w)[ch];
-        }
-      }
-    }
-    cv::addWeighted(colored_mask, alpha, roi_img, 1.0f - alpha, 0.0f, roi_img);
-  }
-  */
   const float alpha = 0.5f;
   cv::Mat roi_img = frame_;
   cv::Mat colored_mask = results[0].getMask();
@@ -256,19 +228,6 @@ void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::Obje
   {
     slog::err << "the size of Object Segmentation and Output Vector is not equal!" << slog::endl;
     return;
-  }
-  for (unsigned i = 0; i < results.size(); i++)
-  {
-    outputs_[i].rect = results[i].getLocation();
-    auto fd_conf = results[i].getConfidence();
-    if (fd_conf >= 0)
-    {
-      std::ostringstream ostream;
-      ostream << "[" << std::fixed << std::setprecision(3) << fd_conf << "]";
-      outputs_[i].desc += ostream.str();
-    }
-    auto label = results[i].getLabel();
-    outputs_[i].desc += "[" + label + "]";
   }
   mergeMask(results);
 }
@@ -325,11 +284,41 @@ void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::Land
   {
     cv::Rect result_rect = results[i].getLocation();
     unsigned target_index = findOutput(result_rect);
-    std::vector<cv::Point> landmark_points = results[i].getLandmarks();
+    std::vector<cv::Point2i> landmark_points = results[i].getLandmarks();
     for (int j = 0; j < landmark_points.size(); j++)
     {
       outputs_[target_index].landmarks.push_back(landmark_points[j]);
     }
+  }
+}
+
+void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>& results)
+{
+  for (unsigned i = 0; i < results.size(); i++)
+  {
+    cv::Rect result_rect = results[i].getLocation();
+    unsigned target_index = findOutput(result_rect);
+    std::vector<cv::Point2i> landmark_points = results[i].getGaze();
+    // dynamic_vino_lib::GazeResults gaze_result = results[i].getGazeResults();
+    for (int j = 0; j < landmark_points.size(); j++)
+    {
+      outputs_[target_index].landmarks.push_back(landmark_points[j]);
+    }
+  }
+}
+
+void Outputs::ImageWindowOutput::accept(const std::vector<dynamic_vino_lib::HumanPoseResult>& results)
+{
+  OutputData output;
+  output.scalar = cv::Scalar(255, 0, 0);
+  for (unsigned i = 0; i < results.size(); i++) {
+    cv::Rect result_rect = results[i].getLocation();
+    auto score = std::to_string(results[i].getScore());
+
+    output.rect = result_rect;
+    output.desc = "Pose " + std::to_string(i) + " [" + score.substr(0, score.find(".") + 2) + "]";
+    output.kp = results[i].getKeypoints();
+    outputs_.push_back(output);
   }
 }
 
@@ -359,17 +348,67 @@ void Outputs::ImageWindowOutput::decorateFrame()
     if (o.hp_zs != o.hp_ze)
     {
       cv::line(frame_, o.hp_zs, o.hp_ze, cv::Scalar(255, 0, 0), 2);
-      cv::circle(frame_, o.hp_ze, 3, cv::Scalar(255, 0, 0), 2);
+      // cv::circle(frame_, o.hp_ze, lmRadius, cv::Scalar(0, 255, 0), -1);
     }
-
-    for (int i = 0; i < o.landmarks.size(); i++)
+    for (auto kp : o.kp)
     {
-      cv::circle(frame_, o.landmarks[i], 3, cv::Scalar(255, 0, 0), 2);
+      if (kp.x >= 0)
+      {
+        std::string score = std::to_string(kp.score).substr(0, 3);
+        cv::circle(frame_, kp, 3, cv::Scalar(255, 0, 0), cv::FILLED);
+        cv::putText(frame_, score, kp + cv::Point2f(5, 0),
+                cv::FONT_HERSHEY_COMPLEX_SMALL, 0.5, o.scalar);
+      }
+    }
+    const cv::Point2f absentKeypoint(-1.0f, -1.0f);
+    const int stickWidth = 4;
+    static const cv::Scalar colors[18] = {
+        cv::Scalar(255, 0, 0),      cv::Scalar(255, 85, 0),     cv::Scalar(255, 170, 0),
+        cv::Scalar(255, 255, 0),    cv::Scalar(170, 255, 0),    cv::Scalar(85, 255, 0),
+        cv::Scalar(0, 255, 0),      cv::Scalar(0, 255, 85),     cv::Scalar(0, 255, 170),
+        cv::Scalar(0, 255, 255),    cv::Scalar(0, 170, 255),    cv::Scalar(0, 85, 255),
+        cv::Scalar(0, 0, 255),      cv::Scalar(85, 0, 255),     cv::Scalar(170, 0, 255),
+        cv::Scalar(255, 0, 255),    cv::Scalar(255, 0, 170),    cv::Scalar(255, 0, 85)
+    };
+    static const std::pair<int, int> limbKeypointsIds[] = {
+        {1, 2},  {1, 5},   {2, 3},
+        {3, 4},  {5, 6},   {6, 7},
+        {1, 8},  {8, 9},   {9, 10},
+        {1, 11}, {11, 12}, {12, 13},
+        {1, 0},  {0, 14},  {14, 16},
+        {0, 15}, {15, 17}
+    };
+    for (const auto& limbKeypointsId : limbKeypointsIds) 
+    {
+        std::pair<cv::Point2f, cv::Point2f> limbKeypoints(o.kp[limbKeypointsId.first], 
+            o.kp[limbKeypointsId.second]);
+        if (limbKeypoints.first == absentKeypoint || limbKeypoints.second == absentKeypoint) 
+        {
+            continue;
+        }
+
+        float meanX = (limbKeypoints.first.x + limbKeypoints.second.x) / 2;
+        float meanY = (limbKeypoints.first.y + limbKeypoints.second.y) / 2;
+        cv::Point difference = limbKeypoints.first - limbKeypoints.second;
+        double length = std::sqrt(difference.x * difference.x + difference.y * difference.y);
+        int angle = static_cast<int>(std::atan2(difference.y, difference.x) * 180 / CV_PI);
+        std::vector<cv::Point> polygon;
+        cv::ellipse2Poly(cv::Point2d(meanX, meanY), cv::Size2d(length / 2, stickWidth),
+                          angle, 0, 360, 1, polygon);
+        cv::fillConvexPoly(frame_, polygon, colors[limbKeypointsId.second]);
+    }
+    //TODO Corsair-cxs
+    auto faceBoundingBoxWidth = o.rect.width;
+    int lmRadius = static_cast<int>(0.01 * faceBoundingBoxWidth + 1);
+    for (unsigned long i = 0; i < o.landmarks.size(); i++)
+    {
+      cv::circle(frame_, o.landmarks[i], lmRadius, cv::Scalar(0, 255, 255), -1);
     }
   }
 
   outputs_.clear();
 }
+
 void Outputs::ImageWindowOutput::handleOutput()
 {
   if (frame_.cols == 0 || frame_.rows == 0)

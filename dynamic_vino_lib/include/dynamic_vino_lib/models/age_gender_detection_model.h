@@ -34,12 +34,18 @@ namespace Models
 class AgeGenderDetectionModel : public BaseModel
 {
 public:
+  AgeGenderDetectionModel();
   AgeGenderDetectionModel(const std::string& model_loc, int batch_size = 1);
   /**
    * @brief Get the input name.
    * @return Input name.
    */
 
+  // inline void Models::AgeGenderDetectionModel::setModel(const std::string& model_loc, int max_batch_size) 
+  // {
+  //   model_loc_ = model_loc;
+  //   max_batch_size_ = max_batch_size;
+  // }
   /**
    * @brief Get the age from the detection reuslt.
    * @return Detected age.

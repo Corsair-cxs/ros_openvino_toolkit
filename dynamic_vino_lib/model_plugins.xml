@@ -1,0 +1,44 @@
+<library path="lib/libdynamic_vino_lib">
+  <class name="dynamic_vino_lib/AgeGenderDetectionModel" type="Models::AgeGenderDetectionModel" base_class_type="Models::BaseModel">
+    <description>This is a AgeGenderDetectionModel plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/EmotionDetectionModel" type="Models::EmotionDetectionModel" base_class_type="Models::BaseModel">
+    <description>This is a EmotionDetectionModel plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/FaceDetectionModel" type="Models::FaceDetectionModel" base_class_type="Models::BaseModel">
+    <description>This is a FaceDetectionModel plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/FaceReidentificationModel" type="Models::FaceReidentificationModel" base_class_type="Models::BaseModel">
+    <description>This is a FaceReidentificationModel plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/GazeEstimationModel" type="Models::GazeEstimationModel" base_class_type="Models::BaseModel">
+    <description>This is a GazeEstimationModel plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/HeadPoseDetectionModel" type="Models::HeadPoseDetectionModel" base_class_type="Models::BaseModel">
+    <description>This is a HeadPoseDetectionModel plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/LandmarksDetectionModel" type="Models::LandmarksDetectionModel" base_class_type="Models::BaseModel">
+    <description>This is a LandmarksDetectionModel plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/LicensePlateDetectionModel" type="Models::LicensePlateDetectionModel" base_class_type="Models::BaseModel">
+    <description>This is a LicensePlateDetectionModel plugin.</description>
+  </class>  
+  <class name="dynamic_vino_lib/ObjectDetectionSSDModel" type="Models::ObjectDetectionSSDModel" base_class_type="Models::BaseModel">
+    <description>This is a ObjectDetectionSSDModel plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/ObjectDetectionYolov2Model" type="Models::ObjectDetectionYolov2Model" base_class_type="Models::BaseModel">
+    <description>This is a ObjectDetectionYolov2Model plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/ObjectSLicensePlateDetectionModelegmentationModel" type="Models::ObjectSegmentationModel" base_class_type="Models::BaseModel">
+    <description>This is a ObjectSegmentationModel plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/PersonAttribsDetectionModel" type="Models::PersonAttribsDetectionModel" base_class_type="Models::BaseModel">
+    <description>This is a PersonAttribsDetectionModel plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/PersonReidentificationModel" type="Models::PersonReidentificationModel" base_class_type="Models::BaseModel">
+    <description>This is a PersonReidentificationModel plugin.</description>
+  </class>
+  <class name="dynamic_vino_lib/VehicleAttribsDetectionModel" type="Models::VehicleAttribsDetectionModel" base_class_type="Models::BaseModel">
+    <description>This is a VehicleAttribsDetectionModel plugin.</description>
+  </class>
+</library>

@@ -21,8 +21,7 @@
 #include "dynamic_vino_lib/inferences/object_segmentation.h"
 #include "dynamic_vino_lib/slog.h"
 // Validated Object Detection Network
-Models::ObjectSegmentationModel::ObjectSegmentationModel(const std::string& model_loc, int max_batch_size)
-  : BaseModel(model_loc, max_batch_size)
+Models::ObjectSegmentationModel::ObjectSegmentationModel() : BaseModel()
 {
 }
 

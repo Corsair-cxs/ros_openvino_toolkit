@@ -91,6 +91,16 @@ void Outputs::RosServiceOutput::setServiceResponse(
     response->reidentification.reidentified_vector = person_reid_topic_->reidentified_vector;
   }
 }
+void Outputs::RosServiceOutput::setServiceResponse(
+  boost::shared_ptr<people_msgs::HumanPoseSrv::Response> response)
+{
+  slog::info << "in Human Pose Estimation service::Response ...";
+  if (human_pose_msg_ptr_ != nullptr) 
+  {
+    response->humanposes = human_pose_msg_ptr_->humanposes;
+  }
+  slog::info << "DONE!" << slog::endl;
+}
 
 void Outputs::RosServiceOutput::setServiceResponse(boost::shared_ptr<people_msgs::PeopleSrv::Response> response)
 {

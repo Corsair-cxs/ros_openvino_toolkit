@@ -29,6 +29,7 @@ namespace Models
 class PersonReidentificationModel : public BaseModel
 {
 public:
+  PersonReidentificationModel();
   PersonReidentificationModel(const std::string& model_loc, int batch_size = 1);
   inline const std::string getInputName()
   {

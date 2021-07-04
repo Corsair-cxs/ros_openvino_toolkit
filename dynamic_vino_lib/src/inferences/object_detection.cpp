@@ -43,7 +43,7 @@ dynamic_vino_lib::ObjectDetection::ObjectDetection(bool enable_roi_constraint, d
 
 dynamic_vino_lib::ObjectDetection::~ObjectDetection() = default;
 
-void dynamic_vino_lib::ObjectDetection::loadNetwork(std::shared_ptr<Models::ObjectDetectionModel> network)
+void dynamic_vino_lib::ObjectDetection::loadNetwork(std::shared_ptr<Models::ObjectDetectionSSDModel> network)
 {
   valid_model_ = network;
 

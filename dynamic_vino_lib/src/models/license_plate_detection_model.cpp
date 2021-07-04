@@ -20,8 +20,7 @@
 #include "dynamic_vino_lib/models/license_plate_detection_model.h"
 #include "dynamic_vino_lib/slog.h"
 // Validated Vehicle Attributes Detection Network
-Models::LicensePlateDetectionModel::LicensePlateDetectionModel(const std::string& model_loc, int max_batch_size)
-  : BaseModel(model_loc, max_batch_size)
+Models::LicensePlateDetectionModel::LicensePlateDetectionModel() : BaseModel()
 {
 }
 

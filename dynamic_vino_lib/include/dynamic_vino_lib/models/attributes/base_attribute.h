@@ -50,10 +50,10 @@ public:
     std::vector<std::string> labels;
   };
 
-  ModelAttribute(const std::string model_name)
+  ModelAttribute()
   {
-    attr_.model_name = model_name;
   }
+  
 
   inline bool isVerified()
   {

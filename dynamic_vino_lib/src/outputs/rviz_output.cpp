@@ -56,6 +56,16 @@ void Outputs::RvizOutput::accept(const std::vector<dynamic_vino_lib::FaceReident
   image_window_output_->accept(results);
 }
 
+void Outputs::RvizOutput::accept(const std::vector<dynamic_vino_lib::LandmarksDetectionResult>& results)
+{
+  image_window_output_->accept(results);
+}
+
+void Outputs::RvizOutput::accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>& results)
+{
+  image_window_output_->accept(results);
+}
+
 void Outputs::RvizOutput::accept(const std::vector<dynamic_vino_lib::FaceDetectionResult>& results)
 {
   image_window_output_->accept(results);
@@ -86,6 +96,10 @@ void Outputs::RvizOutput::accept(const std::vector<dynamic_vino_lib::ObjectSegme
   image_window_output_->accept(results);
 }
 void Outputs::RvizOutput::accept(const std::vector<dynamic_vino_lib::PersonReidentificationResult>& results)
+{
+  image_window_output_->accept(results);
+}
+void Outputs::RvizOutput::accept(const std::vector<dynamic_vino_lib::HumanPoseResult> & results)
 {
   image_window_output_->accept(results);
 }

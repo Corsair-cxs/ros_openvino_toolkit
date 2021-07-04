@@ -64,11 +64,17 @@ public:
    */
   void accept(const std::vector<dynamic_vino_lib::VehicleAttribsDetectionResult>&) override;
   /**
-*@brief Generate image window output content according to
-*the landmarks detection result.
-*@param[in] A landmarks detection result objetc.
-*/
+  *@brief Generate image window output content according to
+  *the landmarks detection result.
+  *@param[in] A landmarks detection result objetc.
+  */
   void accept(const std::vector<dynamic_vino_lib::LandmarksDetectionResult>&) override;
+  /**
+  *@brief Generate image window output content according to
+  *the gaze estimation result.
+  *@param[in] A gaze estimation result objetc.
+  */
+  void accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>&) override;
   /**
    * @brief Generate image window output content according to
    * the person attributes detection result.
@@ -126,6 +132,12 @@ public:
   */
   void accept(const std::vector<dynamic_vino_lib::PersonReidentificationResult>&) override;
   /**
+   * @brief Generate image window output content according to
+   * the human pose estimation result.
+   * @param[in] An human pose estimation result objetc.
+   */
+  void accept(const std::vector<dynamic_vino_lib::HumanPoseResult> &) override;
+  /**
     * @brief Merge mask for image window ouput
     * the object segmentation result.
     * @param[in] An object segmentation result objetc.
@@ -160,7 +172,14 @@ private:
     cv::Point hp_ze;      // for headpose, end point of zAxis
     cv::Point pa_top;     // for person attributes, top position
     cv::Point pa_bottom;  // for person attributes, bottom position
-    std::vector<cv::Point> landmarks;
+    cv::Rect left_eye_boundingbox;   // for gaze estimation, EyeBoundingBox
+    cv::Rect right_eye_boundingbox;  // for gaze estimation, EyeBoundingBox
+    cv::Point2f left_eye_midpoint;   // for gaze estimation, EyeMidpoint
+    cv::Point2f right_eye_midpoint;  // for gaze estimation, EyeMidpoint
+    cv::Point3f gaze_vector;         // for gaze estimation, gazeVector
+    std::vector<dynamic_vino_lib::HumanPoseKeypoint> kp; // for humanpose, keypoints
+
+    std::vector<cv::Point2i> landmarks;
   };
 
   std::vector<OutputData> outputs_;
@@ -173,6 +192,7 @@ private:
                                             { 0, 0, 255 },     { 142, 0, 0 },     { 70, 0, 0 },     { 100, 60, 0 },
                                             { 90, 0, 0 },      { 230, 0, 0 },     { 32, 11, 119 },  { 0, 74, 111 },
                                             { 81, 0, 81 } };
+
 };
 }  // namespace Outputs
 #endif  // DYNAMIC_VINO_LIB_OUTPUTS_IMAGE_WINDOW_OUTPUT_H

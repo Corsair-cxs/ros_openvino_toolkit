@@ -44,6 +44,9 @@ add_message_files(DIRECTORY msg FILES
   VehicleAttribsStamped.msg
   Landmark.msg
   LandmarkStamped.msg
+  HumanPoseKeypoint.msg
+  HumanPose.msg
+  HumanPoseStamped.msg
 )
 
 add_service_files(FILES
@@ -53,6 +56,7 @@ add_service_files(FILES
   PeopleSrv.srv
   ReidentificationSrv.srv
   ObjectsInMasksSrv.srv
+  HumanPoseSrv.srv
 )
 generate_messages(DEPENDENCIES
   std_msgs

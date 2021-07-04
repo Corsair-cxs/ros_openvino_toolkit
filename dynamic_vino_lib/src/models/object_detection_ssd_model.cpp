@@ -21,11 +21,8 @@
 #include "dynamic_vino_lib/models/object_detection_ssd_model.h"
 #include "dynamic_vino_lib/slog.h"
 // Validated Object Detection Network
-Models::ObjectDetectionSSDModel::ObjectDetectionSSDModel(const std::string& model_loc, int max_batch_size)
-  : ObjectDetectionModel(model_loc, max_batch_size)
+Models::ObjectDetectionSSDModel::ObjectDetectionSSDModel() : BaseModel()
 {
-  slog::debug << "TESTING: in ObjectDetectionSSDModel" << slog::endl;
-  // addCandidatedAttr(std::make_shared<Models::SSDModelAttr>());
 }
 
 const std::string Models::ObjectDetectionSSDModel::getModelCategory() const

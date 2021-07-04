@@ -41,6 +41,7 @@ class Engine;
 namespace dynamic_vino_lib
 {
 class ObjectDetectionResult;
+class FaceDetectionResult;
 }
 
 namespace Models
@@ -63,7 +64,7 @@ public:
  * @param[in] batch_size The number of batch size (default: 1) the network should have.
  * @return Whether the input device is successfully turned on.
  */
-  BaseModel(const std::string& model_loc, int batch_size = 1);
+  BaseModel();
 
   /**
  * @brief Get the maximum batch size of the model.
@@ -88,7 +89,7 @@ public:
  * the network input, output size, check layer property and
  * set layer property.
  */
-  void modelInit();
+  void modelInit(const std::string& model_loc, int max_batch_size);
   /**
    * @brief Get the name of the model.
    * @return The name of the model.
@@ -127,17 +128,6 @@ private:
   int max_batch_size_;
   std::string model_loc_;
   cv::Size frame_size_;
-};
-
-class ObjectDetectionModel : public BaseModel
-{
-public:
-  ObjectDetectionModel(const std::string& model_loc, int batch_size = 1);
-  virtual bool fetchResults(const std::shared_ptr<Engines::Engine>& engine,
-                            std::vector<dynamic_vino_lib::ObjectDetectionResult>& result,
-                            const float& confidence_thresh = 0.3, const bool& enable_roi_constraint = false) = 0;
-  virtual bool matToBlob(const cv::Mat& orig_image, const cv::Rect&, float scale_factor, int batch_index,
-                         const std::shared_ptr<Engines::Engine>& engine) = 0;
 };
 
 }  // namespace Models

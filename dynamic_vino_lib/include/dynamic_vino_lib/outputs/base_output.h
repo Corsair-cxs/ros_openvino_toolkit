@@ -28,15 +28,19 @@
 #include "dynamic_vino_lib/inferences/age_gender_detection.h"
 #include "dynamic_vino_lib/inferences/base_inference.h"
 #include "dynamic_vino_lib/inferences/emotions_detection.h"
+#include "dynamic_vino_lib/inferences/object_detection.h"
 #include "dynamic_vino_lib/inferences/face_detection.h"
 #include "dynamic_vino_lib/inferences/head_pose_detection.h"
 #include "dynamic_vino_lib/inferences/object_segmentation.h"
 #include "dynamic_vino_lib/inferences/person_reidentification.h"
 #include "dynamic_vino_lib/inferences/landmarks_detection.h"
+#include "dynamic_vino_lib/inferences/gaze_estimation.h"
 #include "dynamic_vino_lib/inferences/face_reidentification.h"
 #include "dynamic_vino_lib/inferences/person_attribs_detection.h"
 #include "dynamic_vino_lib/inferences/vehicle_attribs_detection.h"
 #include "dynamic_vino_lib/inferences/license_plate_detection.h"
+#include "dynamic_vino_lib/inferences/peak.h"
+#include "dynamic_vino_lib/inferences/human_pose_estimation.h"
 #include "dynamic_vino_lib/services/frame_processing_server.h"
 #include "opencv2/opencv.hpp"
 
@@ -47,6 +51,7 @@
 #include <people_msgs/PeopleSrvResponse.h>
 #include <people_msgs/ReidentificationSrvResponse.h>
 #include <people_msgs/ObjectsInMasksSrvResponse.h>
+#include <people_msgs/HumanPoseSrv.h>
 
 class Pipeline;
 namespace Outputs
@@ -95,6 +100,12 @@ public:
    */
   virtual void accept(const std::vector<dynamic_vino_lib::LandmarksDetectionResult>&)
   {
+  }  
+  /**
+   * @brief Generate output content according to the gaze estimation result.
+   */
+  virtual void accept(const std::vector<dynamic_vino_lib::GazeEstimationResult>&)
+  {
   }
   /**
   * @brief Generate output content according to the face detection result.
@@ -140,6 +151,12 @@ public:
   {
   }
   /**
+  * @brief Generate output content according to the human pose estimation result.
+  */
+  virtual void accept(const std::vector<dynamic_vino_lib::HumanPoseResult> &)
+  {
+  }
+  /**
    * @brief Calculate the camera matrix of a frame for image window output, no
          implementation for ros topic output.
    */
@@ -174,6 +191,9 @@ public:
   {
   }
   virtual void setServiceResponse(boost::shared_ptr<people_msgs::ObjectsInMasksSrvResponse> response)
+  {
+  }
+  virtual void setServiceResponse(boost::shared_ptr<people_msgs::HumanPoseSrvResponse> response) 
   {
   }
   Pipeline* getPipeline() const;

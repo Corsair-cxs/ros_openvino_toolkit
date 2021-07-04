@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 /**
- * @brief A header file with declaration for ObjectDetection Class
- * @file object_detection.hpp
+ * @brief A header file with declaration for ObjectDetectionResult Class
+ * @file object_detection_result.hpp
  */
 #ifndef DYNAMIC_VINO_LIB_INFERENCES_OBJECT_DETECTION_H
 #define DYNAMIC_VINO_LIB_INFERENCES_OBJECT_DETECTION_H
@@ -26,6 +26,9 @@
 #include <vector>
 #include <string>
 #include <map>
+
+#include "dynamic_vino_lib/results/object_detection_result.h"
+#include "dynamic_vino_lib/models/object_detection_ssd_model.h"
 #include "dynamic_vino_lib/engines/engine.h"
 #include "dynamic_vino_lib/inferences/base_inference.h"
 #include "dynamic_vino_lib/inferences/base_filter.h"
@@ -34,99 +37,6 @@
 // namespace
 namespace dynamic_vino_lib
 {
-/**
- * @class ObjectDetectionResult
- * @brief Class for storing and processing face detection result.
- */
-class ObjectDetectionResult : public Result
-{
-public:
-  friend class ObjectDetection;
-  explicit ObjectDetectionResult(const cv::Rect& location);
-  std::string getLabel() const
-  {
-    return label_;
-  }
-
-  void setLabel(const std::string& label)
-  {
-    label_ = label;
-  }
-  /**
-   * @brief Get the confidence that the detected area is a face.
-   * @return The confidence value.
-   */
-  float getConfidence() const
-  {
-    return confidence_;
-  }
-
-  void setConfidence(const float& con)
-  {
-    confidence_ = con;
-  }
-
-  bool operator<(const ObjectDetectionResult& s2) const
-  {
-    return this->confidence_ > s2.confidence_;
-  }
-
-private:
-  std::string label_ = "";
-  float confidence_ = -1;
-};
-
-/**
- * @class ObjectDetectionResultFilter
- * @brief Class for object detection result filter.
- */
-class ObjectDetectionResultFilter : public BaseFilter
-{
-public:
-  using Result = dynamic_vino_lib::ObjectDetectionResult;
-
-  ObjectDetectionResultFilter();
-
-  /**
-   * @brief Initiate the object detection result filter.
-   */
-  void init() override;
-  /**
-   * @brief Set the object detection results into filter.
-   * @param[in] The object detection results.
-   */
-  void acceptResults(const std::vector<Result>& results);
-  /**
-   * @brief Get the filtered results' ROIs.
-   * @return The filtered ROIs.
-   */
-  std::vector<cv::Rect> getFilteredLocations() override;
-
-private:
-  /**
-   * @brief Decide whether a result is valid for label filter condition.
-   * @param[in] Result to be decided, filter operator, target label value.
-   * @return True if valid, false if not.
-   */
-  static bool isValidLabel(const Result& result, const std::string& op, const std::string& target);
-  /**
-   * @brief Decide whether a result is valid for confidence filter condition.
-   * @param[in] Result to be decided, filter operator, target confidence value.
-   * @return True if valid, false if not.
-   */
-  static bool isValidConfidence(const Result& result, const std::string& op, const std::string& target);
-
-  /**
-   * @brief Decide whether a result is valid.
-   * @param[in] Result to be decided.
-   * @return True if valid, false if not.
-   */
-  bool isValidResult(const Result& result);
-
-  std::map<std::string, bool (*)(const Result&, const std::string&, const std::string&)> key_to_function_;
-  std::vector<Result> results_;
-};
-
 /**
  * @class ObjectDetection
  * @brief Class to load face detection model and perform face detection.
@@ -141,7 +51,7 @@ public:
   /**
    * @brief Load the face detection model.
    */
-  void loadNetwork(std::shared_ptr<Models::ObjectDetectionModel>);
+  void loadNetwork(std::shared_ptr<Models::ObjectDetectionSSDModel>);
   /**
    * @brief Enqueue a frame to this class.
    * The frame will be buffered but not infered yet.
@@ -189,13 +99,9 @@ public:
   static double calcIoU(const cv::Rect& box_1, const cv::Rect& box_2);
 
 private:
-  std::shared_ptr<Models::ObjectDetectionModel> valid_model_;
+  std::shared_ptr<Models::ObjectDetectionSSDModel> valid_model_;
   std::shared_ptr<Filter> result_filter_;
   std::vector<Result> results_;
-  int width_ = 0;
-  int height_ = 0;
-  int max_proposal_count_;
-  int object_size_;
   double show_output_thresh_ = 0;
   bool enable_roi_constraint_ = false;
 };
